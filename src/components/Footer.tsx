@@ -66,13 +66,12 @@ export const Footer: React.FC = () => {
             <li>
               <Phone size={18} className={styles.contactIcon} />
               <div className={styles.phoneNumbers}>
-                <a href="tel:+233240000000">+233 (0) 24 000 0000</a>
-                <a href="tel:+233302000000">+233 (0) 30 200 0000</a>
+                <a href="tel:+233202776944">+233 20 277 6944</a>
               </div>
             </li>
             <li>
               <Mail size={18} className={styles.contactIcon} />
-              <a href="mailto:info@mannymedtech.com">info@mannymedtech.com</a>
+              <a href="mailto:maame.jenny@yahoo.com">maame.jenny@yahoo.com</a>
             </li>
           </ul>
         </div>
