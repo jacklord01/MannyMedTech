@@ -78,6 +78,21 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
+      {/* SEO Links & Keywords */}
+      <div className={styles.seoFooter}>
+        <div className={`container`}>
+          <p>
+            <strong>Serving Facilities:</strong> Hospitals, Maternity Clinics, Dental Clinics, Rehabilitation Centers, and Pharmacies across Ghana.
+          </p>
+          <p>
+            <strong>Key Products & Conditions:</strong> Laparotomy packs for surgery, biopsy needles, stroke and rehabilitation gloves for movement recovery, hand pain, and arthritis management. 
+          </p>
+          <p>
+            <strong>Coverage Areas:</strong> Accra, Kumasi, Tamale, Takoradi, Cape Coast, Tema, Obuasi, Koforidua, Sunyani, Ho, Bolgatanga, Wa, and all 16 regions of Ghana. Supplying the African diaspora with reliable wholesale medical distribution.
+          </p>
+        </div>
+      </div>
+
       <div className={styles.bottomBar}>
         <div className={`container ${styles.bottomBarContent}`}>
           <p>&copy; {currentYear} Manny MedTech & Logistics Ltd. All rights reserved.</p>

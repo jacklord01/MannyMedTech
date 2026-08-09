@@ -134,6 +134,28 @@
   background: #0b0f19;
 }
 
+/* SEO Footer block */
+.seoFooter {
+  border-top: 1px solid #1e293b;
+  padding: 16px 0;
+  font-size: 0.65rem;
+  color: #475569;
+  line-height: 1.4;
+  background: #0b0f19;
+}
+
+.seoFooter p {
+  margin-bottom: 8px;
+}
+.seoFooter p:last-child {
+  margin-bottom: 0;
+}
+
+.seoFooter strong {
+  color: #64748b;
+  font-weight: 600;
+}
+
 .bottomBarContent {
   display: flex;
   align-items: center;

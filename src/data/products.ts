@@ -39,8 +39,8 @@ export const PRODUCTS: Product[] = [
     name: "Laparotomy Packs",
     category: "Surgical Supplies",
     price: "GH¢ 350",
-    shortDescription: "Sterile procedure packs for surgical environments. Custom pack configurations can be discussed.",
-    detailedDescription: "Sterile surgical procedure pack designed for laparotomy procedures. Sourced from certified medical manufacturers to guarantee sterilization and patient safety in operating theatres. Suitable for hospitals, clinics, and surgical centers.",
+    shortDescription: "Sterile procedure packs for surgical environments. Custom pack configurations can be discussed for hospitals in Ghana.",
+    detailedDescription: "Sterile surgical procedure pack designed for laparotomy procedures. Sourced from certified medical manufacturers to guarantee sterilization and patient safety in operating theatres. Highly requested by hospitals, maternities, and surgical centers across all major towns and cities in Ghana, including Accra and Kumasi.",
     specs: [
       { label: "Sterility", value: "Sterile and ready to use" },
       { label: "Design", value: "Designed for laparotomy procedures" },
@@ -108,8 +108,8 @@ export const PRODUCTS: Product[] = [
     id: "biopsy-needles",
     name: "Biopsy Needles",
     category: "Consumables",
-    shortDescription: "Needles and related accessories for clinical biopsy procedures. Contact us with the required type or specification.",
-    detailedDescription: "Precision clinical biopsy needles and related accessories for clinical biopsy procedures. Available in multiple gauges and lengths to fit specific ultrasound or CT-guided biopsy protocols. Sourced for clinics and hospitals across Ghana.",
+    shortDescription: "Precision biopsy needles for clinical and hospital procedures in Ghana. Contact us with your required specification.",
+    detailedDescription: "Precision clinical biopsy needles and related accessories for clinical biopsy procedures. Available in multiple gauges and lengths to fit specific ultrasound or CT-guided biopsy protocols. Highly sourced for clinics, dental clinics, and major hospitals across Accra, Kumasi, Tamale, and all regional centers in Ghana.",
     specs: [
       { label: "Application", value: "Clinical biopsy procedures" },
       { label: "Sizes", value: "Available in multiple gauges and lengths" },
@@ -173,13 +173,13 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "robotic-rehab-gloves",
-    name: "Robotic Rehabilitation Gloves",
+    name: "Stroke and Rehabilitation Gloves",
     category: "Rehabilitation",
-    shortDescription: "Assistive rehabilitation gloves for hand therapy and recovery programmes. Suitable for home and clinical use depending on model.",
-    detailedDescription: "Innovative robotic rehabilitation gloves designed to assist patients in hand therapy and recovery programmes. Employs pneumatic muscle simulation to guide finger flexing and extension. Ideal for post-stroke recovery, arthritis, and clinical hand rehabilitation. Suitable for home and clinical use depending on model.",
+    shortDescription: "Assistive stroke and rehabilitation gloves for movement recovery, hand pain, and arthritis management. Suitable for home and clinical use in Ghana.",
+    detailedDescription: "Innovative robotic stroke and rehabilitation gloves designed to assist patients with movement recovery, severe hand pain, and arthritis. Employs pneumatic muscle simulation to guide finger flexing and extension. Highly recommended by hospitals and physiotherapists across Ghana for post-stroke recovery and clinical hand rehabilitation. Suitable for home care or clinical deployment.",
     specs: [
-      { label: "Application", value: "Hand therapy & recovery programmes" },
-      { label: "Operation Mode", value: "Pneumatic muscle simulation" },
+      { label: "Application", value: "Stroke recovery, hand pain & arthritis management" },
+      { label: "Operation Mode", value: "Pneumatic muscle simulation for movement" },
       { label: "Target Users", value: "Post-stroke, arthritis, hand trauma patients" },
       { label: "Settings", value: "Adjustable flexing speed and intensity levels" },
       { label: "Power Source", value: "Rechargeable control unit (included)" }

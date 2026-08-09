@@ -6,8 +6,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Manny MedTech | Reliable Medical Solutions & Efficient Logistics",
-  description: "Manny MedTech & Logistics Ltd. delivers certified medical equipment, surgical consumables, hospital furniture, laboratory supplies, and temperature-controlled logistics services across Ghana and West Africa. Connecting the African diaspora with reliable health solutions.",
-  keywords: "Manny MedTech, medical equipment Ghana, healthcare logistics West Africa, surgical supplies Accra, hospital furniture Ghana, wholesale medical supplies Africa, regional medical distribution Ghana, clinical supplies diaspora",
+  description: "Manny MedTech & Logistics Ltd. delivers certified medical equipment to hospitals, maternity clinics, dental clinics, and rehab centers across all major towns and cities in Ghana (Accra, Kumasi, Tamale, Takoradi, Tema, Cape Coast). Specializing in laparotomy packs, biopsy needles, and stroke & rehabilitation gloves for movement hand pain and arthritis.",
+  keywords: "Manny MedTech, medical equipment Ghana, healthcare logistics West Africa, hospitals in Ghana, maternity clinics Ghana, dental clinics Accra, laparotomy packs, biopsy needles, stroke rehabilitation gloves, hand pain relief, arthritis gloves, rehab equipment, surgical supplies Accra, Kumasi, Tamale, Takoradi, Cape Coast, Tema, Koforidua, Sunyani, Ho, Bolgatanga, Wa, regional medical distribution Ghana, wholesale medical supplies Africa",
   authors: [{ name: "Manny MedTech & Logistics Ltd." }],
   robots: "index, follow",
   openGraph: {
