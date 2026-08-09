@@ -254,7 +254,14 @@ export default function Home() {
                 </div>
                 <div className={styles.offerAction}>
                   <Link href={`/products/${offer.productId}`} className="btn-primary">View Product</Link>
-                  <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
+                  <a 
+                    href={`https://wa.me/233202776944?text=Hello%20Manny%20MedTech,%20I%20would%20like%20to%20enquire%20about%20the%20${encodeURIComponent(offer.name)}.%20Please%20provide%20availability%20and%20quotation.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.whatsappBtn}
+                  >
+                    Order Now via WhatsApp
+                  </a>
                 </div>
               </div>
             ))}

@@ -480,6 +480,20 @@
   padding: 12px;
 }
 
+.whatsappBtn {
+  background-color: #25D366;
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  border: 1px solid #25D366;
+  transition: all 0.3s ease;
+}
+
+.whatsappBtn:hover {
+  background-color: #128C7E;
+  color: white;
+}
+
 /* Divisions Section */
 .divisionsSection {
   padding: 100px 0;
