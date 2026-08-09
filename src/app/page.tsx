@@ -177,6 +177,9 @@ export default function Home() {
                 { name: 'Ashanti Regional Hub', dot: 'blue' },
                 { name: 'Northern Regional Hub', dot: 'green' },
                 { name: 'Western Regional Hub', dot: 'amber' },
+                { name: 'Central Regional Hub', dot: 'blue' },
+                { name: 'Volta Regional Hub', dot: 'green' },
+                { name: 'Brong Ahafo Regional Hub', dot: 'amber' },
                 { name: 'Diaspora & Export Desk', dot: 'blue' }
               ].map(c => (
                 <div key={c.name} className={styles.distEntry}>
