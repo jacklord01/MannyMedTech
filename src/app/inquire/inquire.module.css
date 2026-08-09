@@ -411,3 +411,128 @@
     padding: 40px 20px;
   }
 }
+
+/* Channel indicator pills in banner */
+.channelStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.channelPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* WhatsApp primary submit button */
+.whatsappSubmitBtn {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 16px 24px !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--radius-md) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3) !important;
+}
+
+.whatsappSubmitBtn:hover {
+  background: #20ba5a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4) !important;
+}
+
+.whatsappSubmitBtn:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
+
+/* Small note under submit */
+.submitNote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* Success screen WhatsApp button */
+.whatsappSuccessBtn {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 16px 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  border-radius: var(--radius-md) !important;
+  margin: 24px auto 32px !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3) !important;
+}
+
+.whatsappSuccessBtn:hover {
+  background: #20ba5a !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Reference ID on success screen */
+.successRef {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+
+/* Price badge in summary sidebar */
+.summaryPrice {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(0, 51, 160, 0.07);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* Quick chat direct button in sidebar */
+.quickWhatsappBtn {
+  background: rgba(37, 211, 102, 0.1) !important;
+  color: #16a34a !important;
+  border: 1.5px solid rgba(37, 211, 102, 0.4) !important;
+  font-weight: 600 !important;
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 12px !important;
+  border-radius: var(--radius-md) !important;
+  margin-top: 16px !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.quickWhatsappBtn:hover {
+  background: rgba(37, 211, 102, 0.18) !important;
+  transform: translateY(-1px) !important;
+}

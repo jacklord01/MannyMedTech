@@ -3,110 +3,162 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useInquiry } from '@/context/InquiryContext';
-import { FileText, MapPin, Building, Phone, Mail, User, Trash2, ArrowLeft, CheckCircle, ClipboardList, Loader2, Send } from 'lucide-react';
+import {
+  FileText, MapPin, Building, Phone, Mail, User, Trash2,
+  ArrowLeft, CheckCircle, ClipboardList, Loader2, Send, MessageCircle
+} from 'lucide-react';
 import styles from './inquire.module.css';
+
+const WHATSAPP_NUMBER = '233202776944';
+
+function buildWhatsAppMessage(
+  formData: {
+    fullName: string;
+    facilityName: string;
+    phone: string;
+    email: string;
+    location: string;
+    shippingNotes: string;
+  },
+  items: Array<{ product: { name: string; category: string; price?: string }; quantity: number; notes?: string }>,
+  quoteId: string
+): string {
+  const itemLines = items
+    .map((item, i) => {
+      const price = item.product.price ? ` (${item.product.price})` : '';
+      const note = item.notes ? `\n   Note: ${item.notes}` : '';
+      return `${i + 1}. ${item.product.name}${price} — Qty: ${item.quantity} [${item.product.category}]${note}`;
+    })
+    .join('\n');
+
+  return [
+    `*QUOTE REQUEST — Manny MedTech*`,
+    `Ref: ${quoteId}`,
+    ``,
+    `*Contact Details*`,
+    `Name: ${formData.fullName}`,
+    `Facility: ${formData.facilityName}`,
+    `Phone: ${formData.phone}`,
+    `Email: ${formData.email}`,
+    `Delivery Location: ${formData.location}`,
+    ``,
+    `*Requested Items*`,
+    itemLines,
+    ``,
+    formData.shippingNotes
+      ? `*Special Instructions*\n${formData.shippingNotes}\n`
+      : '',
+    `Please confirm availability, pricing, and delivery timeline. Thank you.`,
+  ]
+    .join('\n')
+    .trim();
+}
 
 export default function InquirePage() {
   const { items, removeItem, clearCart, updateQuantity } = useInquiry();
-  
-  // Form state
+
   const [formData, setFormData] = useState({
     fullName: '',
     facilityName: '',
     phone: '',
     email: '',
     location: '',
-    shippingNotes: ''
+    shippingNotes: '',
   });
 
-  // UI state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [quoteId, setQuoteId] = useState('');
+  const [whatsappUrl, setWhatsappUrl] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) {
-      setErrorMsg("Your inquiry list is empty. Please add products from the catalog.");
+      setErrorMsg('Your inquiry list is empty. Please add products from the catalog.');
       return;
     }
 
     setIsSubmitting(true);
     setErrorMsg('');
 
-    try {
-      const response = await fetch('/api/inquire', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          clientInfo: formData,
-          items: items.map(item => ({
-            productId: item.product.id,
-            name: item.product.name,
-            category: item.product.category,
-            quantity: item.quantity,
-            notes: item.notes
-          }))
-        })
-      });
+    // Generate a local quote ID
+    const generatedId = `MMT-${Date.now().toString(36).toUpperCase()}`;
 
-      const data = await response.json();
-      
-      if (response.ok) {
-        setQuoteId(data.quoteId);
-        setSubmitSuccess(true);
-        clearCart(); // Clear the quote cart on success
-      } else {
-        setErrorMsg(data.message || "Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      console.error("RFQ Submission Error", err);
-      setErrorMsg("Unable to submit request. Please check your network connection.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Build the WhatsApp message
+    const message = buildWhatsAppMessage(formData, items, generatedId);
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    // Fire API log in background (non-blocking)
+    fetch('/api/inquire', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clientInfo: formData,
+        quoteId: generatedId,
+        items: items.map((item) => ({
+          productId: item.product.id,
+          name: item.product.name,
+          category: item.product.category,
+          quantity: item.quantity,
+          notes: item.notes,
+        })),
+      }),
+    }).catch(() => {/* silent fail — WA is primary channel */});
+
+    // Open WhatsApp immediately
+    window.open(waUrl, '_blank');
+
+    setQuoteId(generatedId);
+    setWhatsappUrl(waUrl);
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    clearCart();
   };
 
+  /* ── Success Screen ─────────────────────────────────────────────── */
   if (submitSuccess) {
     return (
       <div className={styles.inquirePage}>
         <div className="container">
           <div className={styles.successCard}>
             <CheckCircle className={styles.successIcon} size={64} />
-            <h2>RFQ Submitted Successfully!</h2>
+            <h2>Quote Request Sent!</h2>
             <p className={styles.successSub}>
-              Thank you for choosing Manny MedTech. Your request has been logged under ID: <strong>{quoteId}</strong>.
+              Your WhatsApp has been opened with a pre-filled message. If it didn't open automatically, tap the button below.
             </p>
-            
+            <p className={styles.successRef}>Reference: <strong>{quoteId}</strong></p>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn ${styles.whatsappSuccessBtn}`}
+            >
+              <MessageCircle size={20} /> Open WhatsApp Chat
+            </a>
+
             <div className={styles.successDetails}>
               <h4>What happens next?</h4>
               <ol>
-                <li>Our Accra logistics and sales desk will calculate landing taxes, delivery options, and wholesale discounts.</li>
-                <li>A complete PDF quotation along with copy certificates (FDA Ghana registration / ISO forms) will be sent to <strong>{formData.email}</strong>.</li>
-                <li>We will contact you via <strong>{formData.phone}</strong> within 1-2 business hours to review payment structures (Vercel Postgres ledger logs / AWS secure channels).</li>
+                <li>Our Accra sales desk receives your WhatsApp message instantly.</li>
+                <li>We confirm stock availability and calculate pricing, shipping costs and FDA clearance within 1–2 business hours.</li>
+                <li>A full PDF quotation with compliance certificates will be sent to <strong>{formData.email || 'your email'}</strong>.</li>
               </ol>
             </div>
 
             <div className={styles.successButtons}>
-              <Link href="/products" className="btn btn-primary">
-                Return to Catalog
-              </Link>
-              <Link href="/" className="btn btn-secondary">
-                Go to Home
-              </Link>
+              <Link href="/products" className="btn btn-primary">Return to Catalog</Link>
+              <Link href="/" className="btn btn-secondary">Go to Home</Link>
             </div>
           </div>
         </div>
@@ -114,13 +166,27 @@ export default function InquirePage() {
     );
   }
 
+  /* ── Main Form ──────────────────────────────────────────────────── */
   return (
     <div className={styles.inquirePage}>
       {/* Banner */}
       <div className={styles.banner}>
         <div className="container">
           <h1>Request for Quote (RFQ)</h1>
-          <p>Complete the form below to receive a wholesale quote, logistics schedule, and compliance sheets.</p>
+          <p>Fill in your details below. Your quote will be sent directly to us via WhatsApp for the fastest possible response.</p>
+
+          {/* Channel strip */}
+          <div className={styles.channelStrip}>
+            <span className={styles.channelPill}>
+              <MessageCircle size={14} /> WhatsApp — Primary (Instant)
+            </span>
+            <span className={styles.channelPill}>
+              <Mail size={14} /> Email — PDF Quote Follow-up
+            </span>
+            <span className={styles.channelPill}>
+              <Phone size={14} /> Call: +233 20 277 6944
+            </span>
+          </div>
         </div>
       </div>
 
@@ -133,7 +199,7 @@ export default function InquirePage() {
           <div className={styles.emptyContainer}>
             <ClipboardList size={64} strokeWidth={1} />
             <h3>No Items Selected</h3>
-            <p>You haven't added any products to your inquiry list yet. Browse our divisions and select the supplies or equipment your clinic requires.</p>
+            <p>You haven&apos;t added any products to your inquiry list yet. Browse our catalog and add the supplies or equipment your clinic requires.</p>
             <Link href="/products" className="btn btn-primary" style={{ marginTop: '20px' }}>
               Browse Catalog
             </Link>
@@ -142,92 +208,60 @@ export default function InquirePage() {
           <div className={styles.inquireGrid}>
             {/* Left: Contact Form */}
             <div className={styles.formContainer}>
-              <h2 className={styles.formTitle}>Facility & Procurement Details</h2>
-              <p className={styles.formSub}>All fields are required to process customized shipping clearance and taxes in Ghana.</p>
+              <h2 className={styles.formTitle}>Facility &amp; Contact Details</h2>
+              <p className={styles.formSub}>
+                Submitting this form opens WhatsApp with a pre-filled message containing your full quote list — no copy-pasting needed.
+              </p>
 
-              {errorMsg && (
-                <div className={styles.errorAlert}>
-                  {errorMsg}
-                </div>
-              )}
+              {errorMsg && <div className={styles.errorAlert}>{errorMsg}</div>}
 
               <form onSubmit={handleSubmit} className={styles.rfqForm}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="fullName">
-                    <User size={16} /> Contact Full Name
-                  </label>
+                  <label htmlFor="fullName"><User size={16} /> Contact Full Name</label>
                   <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    required
+                    type="text" id="fullName" name="fullName" required
                     placeholder="e.g., Dr. Kwame Mensah"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
+                    value={formData.fullName} onChange={handleInputChange}
                     className={styles.inputField}
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="facilityName">
-                    <Building size={16} /> Hospital / Clinic / Business Name
-                  </label>
+                  <label htmlFor="facilityName"><Building size={16} /> Hospital / Clinic / Business Name</label>
                   <input
-                    type="text"
-                    id="facilityName"
-                    name="facilityName"
-                    required
+                    type="text" id="facilityName" name="facilityName" required
                     placeholder="e.g., Spintex Hope Clinic Ltd."
-                    value={formData.facilityName}
-                    onChange={handleInputChange}
+                    value={formData.facilityName} onChange={handleInputChange}
                     className={styles.inputField}
                   />
                 </div>
 
                 <div className={styles.gridFormRow}>
                   <div className={styles.formGroup}>
-                    <label htmlFor="phone">
-                      <Phone size={16} /> Contact Phone Number
-                    </label>
+                    <label htmlFor="phone"><Phone size={16} /> Contact Phone Number</label>
                     <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      required
+                      type="tel" id="phone" name="phone" required
                       placeholder="e.g., +233 24 123 4567"
-                      value={formData.phone}
-                      onChange={handleInputChange}
+                      value={formData.phone} onChange={handleInputChange}
                       className={styles.inputField}
                     />
                   </div>
-
                   <div className={styles.formGroup}>
-                    <label htmlFor="email">
-                      <Mail size={16} /> Email Address
-                    </label>
+                    <label htmlFor="email"><Mail size={16} /> Email Address</label>
                     <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
+                      type="email" id="email" name="email" required
                       placeholder="e.g., k.mensah@hopeclinic.com"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                      value={formData.email} onChange={handleInputChange}
                       className={styles.inputField}
                     />
                   </div>
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="location">
-                    <MapPin size={16} /> Primary Delivery City & Region
-                  </label>
+                  <label htmlFor="location"><MapPin size={16} /> Primary Delivery City &amp; Region</label>
                   <select
-                    id="location"
-                    name="location"
-                    required
-                    value={formData.location}
-                    onChange={handleInputChange}
+                    id="location" name="location" required
+                    value={formData.location} onChange={handleInputChange}
                     className={styles.selectField}
                   >
                     <option value="">-- Select Delivery Location --</option>
@@ -247,33 +281,32 @@ export default function InquirePage() {
 
                 <div className={styles.formGroup}>
                   <label htmlFor="shippingNotes">
-                    Special Shipping or Regulatory Requests
+                    <FileText size={16} /> Special Shipping or Regulatory Requests
                   </label>
                   <textarea
-                    id="shippingNotes"
-                    name="shippingNotes"
-                    placeholder="e.g., Provide customs clearance at Tema Port / Requires WHO-approved logistics logs on arrival / Request certifications printed in hardcopy..."
-                    value={formData.shippingNotes}
-                    onChange={handleInputChange}
+                    id="shippingNotes" name="shippingNotes"
+                    placeholder="e.g., Requires WHO-approved logistics logs / Customs clearance at Tema Port / Hardcopy certifications..."
+                    value={formData.shippingNotes} onChange={handleInputChange}
                     className={styles.textareaField}
                   />
                 </div>
 
+                {/* Submit — WhatsApp primary */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`btn btn-primary ${styles.submitBtn}`}
+                  className={`btn ${styles.whatsappSubmitBtn}`}
                 >
                   {isSubmitting ? (
-                    <>
-                      <Loader2 className={styles.spinner} size={18} /> Submitting RFQ...
-                    </>
+                    <><Loader2 className={styles.spinner} size={18} /> Preparing message...</>
                   ) : (
-                    <>
-                      <Send size={18} /> Submit Quote Request
-                    </>
+                    <><MessageCircle size={18} /> Send Quote via WhatsApp</>
                   )}
                 </button>
+
+                <p className={styles.submitNote}>
+                  This opens WhatsApp with your full order pre-filled. You can review before sending. A confirmation is also logged on our server.
+                </p>
               </form>
             </div>
 
@@ -287,6 +320,9 @@ export default function InquirePage() {
                       <div>
                         <h4>{item.product.name}</h4>
                         <span>{item.product.category}</span>
+                        {item.product.price && (
+                          <span className={styles.summaryPrice}>{item.product.price}</span>
+                        )}
                       </div>
                       <button
                         className={styles.removeBtn}
@@ -301,24 +337,22 @@ export default function InquirePage() {
                       <div className={styles.quantityWidget}>
                         <span>Qty:</span>
                         <input
-                          type="number"
-                          min="1"
+                          type="number" min="1"
                           value={item.quantity}
-                          onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value) || 1)}
+                          onChange={(e) =>
+                            updateQuantity(item.product.id, parseInt(e.target.value) || 1)
+                          }
                           className={styles.quantityInput}
                         />
                       </div>
-                      
                       {item.product.certifications && item.product.certifications.length > 0 && (
-                        <span className={styles.certBadge}>
-                          ✓ FDA/ISO Compliance
-                        </span>
+                        <span className={styles.certBadge}>✓ FDA/ISO</span>
                       )}
                     </div>
 
                     {item.notes && (
                       <div className={styles.summaryItemNote}>
-                        <strong>Requirement:</strong> {item.notes}
+                        <strong>Note:</strong> {item.notes}
                       </div>
                     )}
                   </div>
@@ -330,8 +364,18 @@ export default function InquirePage() {
                 <strong>CONTACT SALES</strong>
               </div>
               <p className={styles.summaryNotice}>
-                * Prices are determined by import clearance taxes, delivery regions, and order volumes. We verify every request against active FDA databases.
+                * Pricing includes import clearance, delivery zones and order volume discounts. Verified against FDA Ghana databases.
               </p>
+
+              {/* Quick direct WhatsApp link without form */}
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello Manny MedTech, I would like to enquire about your medical supplies. Please assist.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`btn ${styles.quickWhatsappBtn}`}
+              >
+                <MessageCircle size={16} /> Chat Directly on WhatsApp
+              </a>
             </div>
           </div>
         )}
