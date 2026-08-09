@@ -558,6 +558,17 @@
   background: rgba(255, 255, 255, 0.1) !important;
 }
 
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+  }
+  
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .sourcingBanner {
     flex-direction: column;
@@ -591,5 +602,24 @@
   .searchWrapper {
     width: 100%;
     max-width: 100%;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .noResults {
+    grid-column: span 1;
   }
 }
