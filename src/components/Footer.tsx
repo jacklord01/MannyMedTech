@@ -1,0 +1,95 @@
+import React from 'react';
+import Link from 'next/link';
+import { Mail, Phone, MapPin, ShieldCheck, Activity } from 'lucide-react';
+import styles from './Footer.module.css';
+
+export const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className={styles.footer}>
+      <div className={`container ${styles.footerGrid}`}>
+        {/* Brand Column */}
+        <div className={styles.brandCol}>
+          <div className={styles.logo}>
+            <div className={styles.logoIcon}>
+              <Activity size={20} />
+            </div>
+            <h4>Manny MedTech</h4>
+          </div>
+          <p className={styles.brandSlogan}>
+            Reliable Medical Solutions. Efficient Logistics.
+          </p>
+          <p className={styles.brandDesc}>
+            Providing certified medical equipment, healthcare consumables, and end-to-end cold chain logistics to clinics, hospitals, and retailers in Ghana and the African diaspora.
+          </p>
+          <div className={styles.complianceBadge}>
+            <ShieldCheck size={16} />
+            <span>GSDP & FDA Ghana Verified Distributor</span>
+          </div>
+        </div>
+
+        {/* Categories Column */}
+        <div className={styles.linkCol}>
+          <h5>Product Divisions</h5>
+          <ul>
+            <li><Link href="/products?category=Medical+Equipment">Medical Equipment</Link></li>
+            <li><Link href="/products?category=Consumables">Consumables & PPE</Link></li>
+            <li><Link href="/products?category=Surgical+Supplies">Surgical Supplies</Link></li>
+            <li><Link href="/products?category=Laboratory+Supplies">Laboratory Supplies</Link></li>
+            <li><Link href="/products?category=Hospital+Furniture">Hospital Furniture</Link></li>
+          </ul>
+        </div>
+
+        {/* Services Column */}
+        <div className={styles.linkCol}>
+          <h5>Services & Quality</h5>
+          <ul>
+            <li><Link href="/logistics">Cold Chain Logistics</Link></li>
+            <li><Link href="/logistics#freight">Customs Clearance</Link></li>
+            <li><Link href="/certifications">Quality Standard Audits</Link></li>
+            <li><Link href="/certifications#fda">Ghana FDA Approvals</Link></li>
+            <li><Link href="/inquire">Request Wholesale RFQ</Link></li>
+          </ul>
+        </div>
+
+        {/* Contact Column */}
+        <div className={styles.contactCol}>
+          <h5>Headquarters & Contact</h5>
+          <ul className={styles.contactList}>
+            <li>
+              <MapPin size={18} className={styles.contactIcon} />
+              <span>
+                Manny Heights, Spintex Road, Accra, Ghana
+              </span>
+            </li>
+            <li>
+              <Phone size={18} className={styles.contactIcon} />
+              <div className={styles.phoneNumbers}>
+                <a href="tel:+233240000000">+233 (0) 24 000 0000</a>
+                <a href="tel:+233302000000">+233 (0) 30 200 0000</a>
+              </div>
+            </li>
+            <li>
+              <Mail size={18} className={styles.contactIcon} />
+              <a href="mailto:info@mannymedtech.com">info@mannymedtech.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className={styles.bottomBar}>
+        <div className={`container ${styles.bottomBarContent}`}>
+          <p>&copy; {currentYear} Manny MedTech & Logistics Ltd. All rights reserved.</p>
+          <div className={styles.bottomLinks}>
+            <span>Ghana FDA Compliant</span>
+            <span className={styles.dot}>•</span>
+            <span>WHO GSDP Standard</span>
+            <span className={styles.dot}>•</span>
+            <Link href="/inquire">Submit Inquiry</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};

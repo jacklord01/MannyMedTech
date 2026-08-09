@@ -1,0 +1,216 @@
+.certificationsPage {
+  background: var(--background);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.heroBanner {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.heroBanner h1 {
+  font-size: 2.75rem;
+  margin-bottom: 16px;
+}
+
+.heroBanner p {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Standards Section */
+.standardsSection {
+  padding: 80px 0;
+  background: var(--background);
+}
+
+.standardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.stdCard {
+  padding: 30px;
+  height: 100%;
+}
+
+.stdIcon {
+  color: var(--primary);
+  margin-bottom: 20px;
+  width: 56px;
+  height: 56px;
+  background: rgba(15, 118, 110, 0.05);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stdCard h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.stdCard p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Pipeline Validation */
+.pipelineSection {
+  padding: 100px 0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.pipelineGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.pipelineCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.stepNumber {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: rgba(15, 118, 110, 0.08);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border: 2px solid var(--primary-light);
+}
+
+.stepLine {
+  flex: 1;
+  height: 2px;
+  background: var(--card-border);
+  margin-left: 10px;
+}
+
+.pipelineGrid .pipelineCard:last-child .stepLine {
+  display: none;
+}
+
+.pipelineCard h4 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.pipelineCard p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* FAQ Section */
+.faqSection {
+  padding: 100px 0;
+  background: var(--background);
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.faqCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faqQuestion {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.faqIcon {
+  color: var(--primary-light);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.faqQuestion h4 {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.faqAnswer {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .standardsGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .pipelineGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  
+  .pipelineGrid .pipelineCard:nth-child(2) .stepLine {
+    display: none;
+  }
+  
+  .faqGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroBanner h1 {
+    font-size: 2.2rem;
+  }
+  
+  .pipelineGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .stepLine {
+    display: none !important;
+  }
+}

@@ -1,0 +1,318 @@
+.logisticsPage {
+  background: var(--background);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.heroBanner {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.heroBanner h1 {
+  font-size: 2.75rem;
+  margin-bottom: 16px;
+}
+
+.heroBanner p {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Intro Section */
+.introSection {
+  padding: 80px 0;
+  background: var(--card-bg);
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.introText h2 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.introText p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.complianceNote {
+  display: flex;
+  gap: 16px;
+  background: rgba(34, 197, 94, 0.05);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.complianceIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.complianceNote h5 {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.complianceNote span {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Schematic diagrams */
+.schematicCard {
+  background: #0f172a;
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  border: 1px solid #1e293b;
+  color: #ffffff;
+  box-shadow: var(--shadow-lg);
+}
+
+.schematicCard h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--primary-light);
+  padding-left: 10px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  width: 2px;
+  height: calc(100% - 20px);
+  background: #334155;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.dotActive {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 2px solid #0f172a;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.timelineItem h5 {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.timelineItem span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Capabilities Grid */
+.capabilitiesSection {
+  padding: 100px 0;
+  background: var(--background);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.capabilitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.capCard {
+  padding: 30px;
+}
+
+.capIcon {
+  color: var(--primary);
+  margin-bottom: 20px;
+  width: 60px;
+  height: 60px;
+  background: rgba(15, 118, 110, 0.05);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.capCard h4 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.capCard p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Diaspora Section */
+.diasporaSection {
+  padding: 100px 0;
+  background: var(--card-bg);
+}
+
+.diasporaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.diasporaVisual {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.diasporaVisual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--secondary) 1px, transparent 1px);
+  background-size: 12px 12px;
+  opacity: 0.15;
+}
+
+.diasporaBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--secondary-hover);
+  text-align: center;
+  z-index: 2;
+}
+
+.diasporaBadge h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.diasporaInfo h2 {
+  font-size: 2.25rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.diasporaSub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  margin-bottom: 20px;
+}
+
+.diasporaInfo p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+/* CTA */
+.logisticsCta {
+  padding: 60px 0;
+  background: var(--background);
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  padding: 48px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.ctaCard h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.ctaCard p {
+  max-width: 600px;
+  margin: 0 auto 24px auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .introGrid, .diasporaGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .capabilitiesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .diasporaVisual {
+    height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroBanner h1 {
+    font-size: 2.2rem;
+  }
+  
+  .ctaCard {
+    padding: 30px 20px;
+  }
+  
+  .ctaCard h2 {
+    font-size: 1.6rem;
+  }
+}

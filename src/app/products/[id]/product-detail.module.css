@@ -1,0 +1,920 @@
+.detailPage {
+  background: var(--background);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.breadcrumbsBar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--card-border);
+  padding: 14px 0;
+  margin-bottom: 24px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.breadcrumbs a:hover {
+  color: var(--primary-light);
+}
+
+.activeBreadcrumb {
+  color: var(--text-primary);
+  font-weight: 550;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  margin-bottom: 30px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.backLink:hover {
+  color: var(--primary-hover);
+  transform: translateX(-2px);
+}
+
+/* Grid Layout */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 50px;
+  align-items: start;
+}
+
+/* Visual Column */
+.visualCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.illustrationWrapper {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+}
+
+.illustrationBox {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Device: ECG Monitor */
+.monitorFrame {
+  width: 100%;
+  height: 180px;
+  background: #090d16;
+  border: 8px solid #1e293b;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+.monitorHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.hrMetric {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.monitorScreen {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.ecgWave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.deviceControls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.knob {
+  width: 32px;
+  height: 32px;
+  background: #334155;
+  border: 3px dashed #475569;
+  border-radius: 50%;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 12px);
+  gap: 6px;
+}
+
+.buttonGrid span {
+  width: 12px;
+  height: 12px;
+  background: #475569;
+  border-radius: 2px;
+}
+
+/* Device: Ultrasound */
+.ultrasoundFrame {
+  width: 100%;
+  height: 180px;
+  background: #020617;
+  border: 6px solid #334155;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ultrasoundCone {
+  flex: 1;
+  background: conic-gradient(from 150deg at 50% 0%, rgba(14, 165, 233, 0.15) 0deg, rgba(14, 165, 233, 0) 60deg);
+  position: relative;
+  border-radius: 0 0 100% 100% / 0 0 40% 40%;
+  overflow: hidden;
+}
+
+.ultrasoundPulse {
+  position: absolute;
+  bottom: 20px;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  border: 3px double rgba(14, 165, 233, 0.4);
+  border-radius: 50%;
+  animation: pulse-soft 3s infinite ease-in-out;
+}
+
+/* Device: Syringe */
+.syringeVector {
+  position: relative;
+  width: 60px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plunger {
+  width: 10px;
+  height: 60px;
+  background: #94a3b8;
+  position: relative;
+}
+
+.plunger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 26px;
+  height: 6px;
+  background: #64748b;
+  border-radius: 3px;
+}
+
+.barrel {
+  width: 28px;
+  height: 120px;
+  background: rgba(15, 118, 110, 0.05);
+  border: 3.5px solid #0f766e;
+  border-radius: 4px;
+  position: relative;
+  padding: 10px 0;
+}
+
+.ticks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding-left: 4px;
+}
+
+.ticks span {
+  width: 10px;
+  height: 2px;
+  background: #0f766e;
+}
+
+.needle {
+  width: 2.5px;
+  height: 45px;
+  background: #cbd5e1;
+}
+
+/* Device: Logistics vector */
+.logisticsVector {
+  position: relative;
+  width: 240px;
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.truckCabin {
+  width: 60px;
+  height: 70px;
+  background: var(--primary);
+  border-radius: 0 16px 4px 4px;
+  position: relative;
+}
+
+.window {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  width: 22px;
+  height: 20px;
+  background: #e2e8f0;
+  border-radius: 0 6px 0 0;
+}
+
+.containerBox {
+  width: 150px;
+  height: 90px;
+  background: var(--secondary);
+  border-radius: 8px 0 0 8px;
+  margin-right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thermometerBadge {
+  background: #ffffff;
+  color: var(--secondary-hover);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  font-family: monospace;
+}
+
+.wheels {
+  position: absolute;
+  bottom: -15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 30px;
+}
+
+.wheel {
+  width: 32px;
+  height: 32px;
+  background: #1e293b;
+  border: 6px solid #64748b;
+  border-radius: 50%;
+}
+
+/* Device: Fallback */
+.fallbackBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+}
+
+.fallbackIcon {
+  color: var(--primary-light);
+}
+
+/* Compliance List on detail */
+.complianceSummary {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.complianceSummary h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.complianceSummary ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.complianceSummary li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.checkIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Info Column */
+.infoCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-light);
+  margin-bottom: 8px;
+}
+
+.productName {
+  font-size: 2.25rem;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.shortDesc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+/* Action Box */
+.actionBox {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.02) 0%, rgba(14, 165, 233, 0.02) 100%);
+  border: 1px solid var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+}
+
+.actionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.noPriceLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.cartStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--success);
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.actionNotice {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.controlsRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.quantityPicker {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pickerBtn {
+  background: transparent;
+  border: none;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.pickerBtn:hover {
+  background: var(--background);
+  color: var(--primary);
+}
+
+.pickerValue {
+  width: 44px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.addToCartBtn {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px;
+}
+
+.notesField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notesField label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.notesTextarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.notesTextarea:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+/* Tabs */
+.tabsHeader {
+  display: flex;
+  border-bottom: 1.5px solid var(--card-border);
+  margin-bottom: 24px;
+}
+
+.tabBtn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tabBtn:hover {
+  color: var(--primary-light);
+}
+
+.tabBtnActive {
+  color: var(--primary);
+}
+
+.tabBtnActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1.5px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: var(--primary);
+}
+
+.tabContent {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  min-height: 240px;
+}
+
+/* Overview Tab */
+.overviewTab h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.overviewTab p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.clinicalFitGrid h5 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.fitBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fitBadges span {
+  font-size: 0.75rem;
+  background: var(--background);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  font-weight: 550;
+}
+
+/* Specs Tab */
+.specsTab h3 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+.specsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specsTable tr {
+  border-bottom: 1px solid var(--card-border);
+}
+
+.specsTable tr:last-child {
+  border-bottom: none;
+}
+
+.specsTable td {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+}
+
+.specName {
+  color: var(--text-muted);
+  width: 35%;
+  font-weight: 500;
+}
+
+.specValue {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Certifications Tab */
+.certsTab h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.certsLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.certListSub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.certItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.certItemBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1.5px solid var(--card-border);
+  background: var(--background);
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+}
+
+.certItemBtn:hover {
+  border-color: var(--primary-light);
+  background: var(--card-bg);
+}
+
+.certItemBtnActive {
+  border-color: var(--primary) !important;
+  background: var(--card-bg) !important;
+  color: var(--primary) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.certItemBtnMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.certItemBtnMeta span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.certItemBtnMeta strong {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.certItemBtnActive .certItemBtnMeta strong {
+  color: var(--primary-light);
+}
+
+/* Certificate Viewer Render styling */
+.certViewer {
+  min-height: 300px;
+}
+
+.noCertSelected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  height: 100%;
+}
+
+.certificate {
+  background: #fff8f0; /* Soft vintage parchment color */
+  border: 12px double #854d0e; /* Thick double border */
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+  color: #1e1e1e;
+  border-radius: 4px;
+}
+
+.certBorder {
+  border: 2px solid #854d0e;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+}
+
+.certHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #854d0e;
+  padding-bottom: 16px;
+}
+
+.certSeal {
+  color: #c2410c; /* Deep gold/red seal color */
+  margin-bottom: 12px;
+}
+
+.certHeader h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #854d0e;
+  letter-spacing: 0.05em;
+}
+
+.certIssuer {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: #451a03;
+  margin-top: 4px;
+}
+
+.certCertifyText {
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 1.5;
+  color: #3f3f46;
+  font-style: italic;
+}
+
+.certDetailsTable {
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  border: 1px solid #e4e4e7;
+  border-radius: 4px;
+}
+
+.certDetailRow {
+  display: flex;
+  border-bottom: 1px solid #e4e4e7;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+
+.certDetailRow:last-child {
+  border-bottom: none;
+}
+
+.certDetailRow span {
+  width: 40%;
+  color: #71717a;
+}
+
+.certDetailRow strong {
+  color: #18181b;
+}
+
+.certDatesRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  border-top: 1px dashed #e4e4e7;
+  padding-top: 16px;
+}
+
+.certDatesRow span {
+  font-size: 0.7rem;
+  color: #71717a;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.certDatesRow strong {
+  font-size: 0.8rem;
+  color: #18181b;
+}
+
+.certFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.certStamp {
+  border: 2px solid #b91c1c;
+  color: #b91c1c;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  transform: rotate(-10deg);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.85;
+}
+
+.certStamp small {
+  font-size: 0.5rem;
+  font-weight: 600;
+}
+
+.certSignature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+
+.sigLine {
+  width: 100%;
+  height: 1px;
+  background: #71717a;
+  margin-bottom: 4px;
+}
+
+.certSignature span {
+  font-size: 0.65rem;
+  color: #71717a;
+}
+
+/* Responsive detail page */
+@media (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .illustrationWrapper {
+    min-height: 260px;
+  }
+  
+  .certsLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .productName {
+    font-size: 1.75rem;
+  }
+  
+  .specsTable td {
+    padding: 8px 10px;
+  }
+  
+  .specName {
+    width: 45%;
+  }
+}
+
+.whatsappBtn {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  flex: 1;
+  min-width: 200px;
+  padding: 14px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.whatsappBtn:hover {
+  background: #20ba5a !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
