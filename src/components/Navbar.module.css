@@ -538,8 +538,12 @@
 
 /* Media Queries */
 @media (max-width: 900px) {
-  .desktopNav, .quoteBtn {
+  .desktopNav {
     display: none;
+  }
+  
+  .quoteBtn {
+    display: none !important;
   }
   
   .menuToggle {
@@ -566,5 +570,9 @@
   
   .cartBtn span {
     display: none;
+  }
+
+  .logoImageWrapper {
+    max-width: 120px;
   }
 }
