@@ -20,12 +20,12 @@ export default function Home() {
   const featuredOffers = [
     { 
       name: "Cesarean Section Pack Offer", 
-      image: "/offers/cesarean-offer.jpg",
+      image: "/offers/cesarean-offer.jpeg",
       productId: "cesarean-packs" 
     },
     { 
       name: "Laparotomy Pack Offer", 
-      image: "/offers/laparotomy-offer.jpg",
+      image: "/offers/laparotomy-offer.jpeg",
       productId: "laparotomy-packs" 
     }
   ];
