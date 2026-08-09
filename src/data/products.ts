@@ -42,11 +42,17 @@ export const PRODUCTS: Product[] = [
     shortDescription: "Sterile procedure packs for surgical environments. Custom pack configurations can be discussed for hospitals in Ghana.",
     detailedDescription: "Sterile surgical procedure pack designed for laparotomy procedures. Sourced from certified medical manufacturers to guarantee sterilization and patient safety in operating theatres. Highly requested by hospitals, maternities, and surgical centers across all major towns and cities in Ghana, including Accra and Kumasi.",
     specs: [
-      { label: "Sterility", value: "Sterile and ready to use" },
-      { label: "Design", value: "Designed for laparotomy procedures" },
-      { label: "Contents", value: "Includes drapes, gowns, gauze, swabs, table cover, mayo stand cover, and more" },
-      { label: "Packaging", value: "Individually wrapped, sterile vacuum packs" },
-      { label: "Options", value: "Custom pack configurations available upon request" }
+      { label: "Sterility", value: "Sterile and ready to use (Individually wrapped, sterile vacuum packs)" },
+      { label: "Surgical Gown", value: "35g SMS, 120cm × 120cm (3 pieces)" },
+      { label: "Examination Drape", value: "35g SMS, 100cm × 100cm (6 pieces)" },
+      { label: "Intermediate Drape", value: "35g SMS, 150cm × 200cm (2 pieces)" },
+      { label: "Fenestrated Drape", value: "35g SMS, 170cm × 280cm (1 piece)" },
+      { label: "Absorbent Gauze Swabs", value: "8cm × 8cm, 8-ply (4 pieces)" },
+      { label: "Medical Cotton Balls", value: "0.5g each (6 pieces)" },
+      { label: "Medicine Cup", value: "50ml (1 piece)" },
+      { label: "Medical Bowl", value: "200ml (1 piece), 500ml (2 pieces)" },
+      { label: "Kidney Basin", value: "Curved Tray, 18cm × 12cm (1 piece)" },
+      { label: "Wrapper", value: "35g SMS, 150cm × 200cm (2 pieces)" }
     ],
     certifications: [
       {
