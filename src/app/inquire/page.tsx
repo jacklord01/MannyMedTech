@@ -151,8 +151,8 @@ export default function InquirePage() {
               <h4>What happens next?</h4>
               <ol>
                 <li>Our Accra sales desk receives your WhatsApp message instantly.</li>
-                <li>We confirm stock availability and calculate pricing, shipping costs and FDA clearance within 1–2 business hours.</li>
-                <li>A full PDF quotation with compliance certificates will be sent to <strong>{formData.email || 'your email'}</strong>.</li>
+                <li>We confirm stock availability and calculate pricing and shipping costs within 1–2 business hours.</li>
+                <li>A full PDF quotation will be sent to your whatsapp/email.</li>
               </ol>
             </div>
 

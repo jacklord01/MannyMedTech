@@ -169,19 +169,19 @@ export default function Home() {
           <div className={styles.distStrip}>
             <div className={styles.distStripHeader}>
               <Truck size={16} />
-              <span>Accra Core Distribution Centres</span>
+              <span>National Distribution Network</span>
             </div>
             <div className={styles.distList}>
               {[
-                { name: 'Korle Bu Teaching Hospital', status: 'In Transit', dot: 'green' },
-                { name: 'Komfo Anokye Teaching Hospital', status: 'Delivered', dot: 'blue' },
-                { name: 'Tamale Regional Hospital', status: 'Dispatched', dot: 'green' },
-                { name: 'Accra Ridgeway Clinic', status: 'Scheduled', dot: 'amber' },
+                { name: 'Greater Accra Regional Hub', dot: 'green' },
+                { name: 'Ashanti Regional Hub', dot: 'blue' },
+                { name: 'Northern Regional Hub', dot: 'green' },
+                { name: 'Western Regional Hub', dot: 'amber' },
+                { name: 'Diaspora & Export Desk', dot: 'blue' }
               ].map(c => (
                 <div key={c.name} className={styles.distEntry}>
                   <span className={`${styles.distDot} ${styles[`dot${c.dot.charAt(0).toUpperCase() + c.dot.slice(1)}`]}`}></span>
                   <span className={styles.distName}>{c.name}</span>
-                  <span className={styles.distStatus}>{c.status}</span>
                 </div>
               ))}
             </div>

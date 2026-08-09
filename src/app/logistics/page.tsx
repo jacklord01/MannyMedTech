@@ -68,13 +68,7 @@ export default function LogisticsPage() {
             <p>
               We consolidate shipments from international manufacturers, clear them via certified regulatory agents at ports, store them in our WHO-standard Accra warehouse, and distribute them to clinical labs in sealed, audited compartments.
             </p>
-            <div className={styles.complianceNote}>
-              <ShieldCheck size={20} className={styles.complianceIcon} />
-              <div>
-                <h5>GSDP Audited Facilities</h5>
-                <span>Manny MedTech is licensed by the Pharmacy Council of Ghana and the Food and Drugs Authority (FDA) for storage and distribution.</span>
-              </div>
-            </div>
+
           </div>
           <div className={styles.visualDiagram}>
             {/* CSS Schematic representing cold chain loop */}
