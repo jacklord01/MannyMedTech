@@ -516,60 +516,30 @@
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
 }
 
-/* Tabs */
-.tabsHeader {
+/* Stacked Content */
+.stackedContent {
   display: flex;
-  border-bottom: 1.5px solid var(--card-border);
-  margin-bottom: 24px;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.tabBtn {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  background: transparent;
-  border: none;
-  padding: 12px 24px;
-  cursor: pointer;
-  position: relative;
-}
-
-.tabBtn:hover {
-  color: var(--primary-light);
-}
-
-.tabBtnActive {
-  color: var(--primary);
-}
-
-.tabBtnActive::after {
-  content: '';
-  position: absolute;
-  bottom: -1.5px;
-  left: 0;
-  width: 100%;
-  height: 2.5px;
-  background: var(--primary);
-}
-
-.tabContent {
+.contentSection {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   padding: 30px;
   box-shadow: var(--shadow-sm);
-  min-height: 240px;
 }
 
-/* Overview Tab */
-.overviewTab h3 {
+.sectionHeading {
   font-size: 1.25rem;
-  margin-bottom: 12px;
-  color: var(--text-primary);
+  margin-bottom: 16px;
+  color: var(--primary);
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 12px;
 }
 
-.overviewTab p {
+.contentSection p {
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text-secondary);

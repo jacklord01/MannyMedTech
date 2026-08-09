@@ -15,7 +15,6 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
   const { addItem, items, updateQuantity } = useInquiry();
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
-  const [activeTab, setActiveTab] = useState<'overview' | 'specs' | 'certs'>('overview');
   const [selectedCert, setSelectedCert] = useState<ProductCertification | null>(
     product.certifications && product.certifications.length > 0 ? product.certifications[0] : null
   );
@@ -219,105 +218,80 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
           </div>
         </div>
 
-        {/* Tabs Headers */}
-        <div className={styles.tabsHeader}>
-          <button 
-            className={`${styles.tabBtn} ${activeTab === 'overview' ? styles.tabBtnActive : ''}`}
-            onClick={() => setActiveTab('overview')}
-          >
-            Overview
-          </button>
-          <button 
-            className={`${styles.tabBtn} ${activeTab === 'specs' ? styles.tabBtnActive : ''}`}
-            onClick={() => setActiveTab('specs')}
-          >
-            Specifications
-          </button>
-          <button 
-            className={`${styles.tabBtn} ${activeTab === 'certs' ? styles.tabBtnActive : ''}`}
-            onClick={() => setActiveTab('certs')}
-          >
-            Supplier Certificates ({product.certifications.length})
-          </button>
-        </div>
-
-        {/* Tabs Content */}
-        <div className={styles.tabContent}>
-          {activeTab === 'overview' && (
-            <div className={styles.overviewTab}>
-              <h3>Product Overview</h3>
-              <p>{product.detailedDescription}</p>
-              
-              <div className={styles.clinicalFitGrid}>
-                <h5>Ideal For:</h5>
-                <div className={styles.fitBadges}>
-                  <span>Hospitals</span>
-                  <span>Clinics</span>
-                  <span>Rehabilitation Labs</span>
-                  <span>Retailers</span>
-                </div>
+        {/* Stacked Content Sections instead of hidden tabs */}
+        <div className={styles.stackedContent}>
+          {/* Section 1: Overview */}
+          <div className={styles.contentSection}>
+            <h3 className={styles.sectionHeading}>Product Overview</h3>
+            <p>{product.detailedDescription}</p>
+            <div className={styles.clinicalFitGrid}>
+              <h5>Ideal For:</h5>
+              <div className={styles.fitBadges}>
+                <span>Hospitals</span>
+                <span>Clinics</span>
+                <span>Rehabilitation Labs</span>
+                <span>Retailers</span>
               </div>
             </div>
-          )}
+          </div>
 
-          {activeTab === 'specs' && (
-            <div className={styles.specsTab}>
-              <h3>Technical Specifications</h3>
-              <table className={styles.specsTable}>
-                <tbody>
-                  {product.specs.map((spec, index) => (
-                    <tr key={index}>
-                      <td className={styles.specName}>{spec.label}</td>
-                      <td className={styles.specValue}>{spec.value}</td>
-                    </tr>
+          {/* Section 2: Specifications & Contents */}
+          <div className={styles.contentSection}>
+            <h3 className={styles.sectionHeading}>Technical Specifications & Contents</h3>
+            <table className={styles.specsTable}>
+              <tbody>
+                {product.specs.map((spec, index) => (
+                  <tr key={index}>
+                    <td className={styles.specName}>{spec.label}</td>
+                    <td className={styles.specValue}>{spec.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Section 3: Certifications */}
+          <div className={styles.contentSection}>
+            <div className={styles.certsLayout}>
+              {/* Cert List */}
+              <div className={styles.certList}>
+                <h3 className={styles.sectionHeading}>Supplier Certificates ({product.certifications.length})</h3>
+                <p className={styles.certListSub}>Click on a document below to view its regulatory validation profile.</p>
+                <div className={styles.certItems}>
+                  {product.certifications.map((cert) => (
+                    <button
+                      key={cert.code}
+                      className={`${styles.certItemBtn} ${selectedCert?.code === cert.code ? styles.certItemBtnActive : ''}`}
+                      onClick={() => setSelectedCert(cert)}
+                    >
+                      <FileText size={16} />
+                      <div className={styles.certItemBtnMeta}>
+                        <span>{cert.title}</span>
+                        <strong>{cert.code}</strong>
+                      </div>
+                    </button>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {activeTab === 'certs' && (
-            <div className={styles.certsTab}>
-              <div className={styles.certsLayout}>
-                {/* Cert List */}
-                <div className={styles.certList}>
-                  <h3>Compliance Documents</h3>
-                  <p className={styles.certListSub}>Click on a document below to view its regulatory validation profile.</p>
-                  <div className={styles.certItems}>
-                    {product.certifications.map((cert) => (
-                      <button
-                        key={cert.code}
-                        className={`${styles.certItemBtn} ${selectedCert?.code === cert.code ? styles.certItemBtnActive : ''}`}
-                        onClick={() => setSelectedCert(cert)}
-                      >
-                        <FileText size={16} />
-                        <div className={styles.certItemBtnMeta}>
-                          <span>{cert.title}</span>
-                          <strong>{cert.code}</strong>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
                 </div>
+              </div>
 
-                {/* Cert Viewer */}
-                <div className={styles.certViewer}>
-                  {selectedCert ? (
-                    <div className={styles.certificate}>
-                      <div className={styles.certBorder}>
-                        <div className={styles.certHeader}>
-                          <Award size={32} className={styles.certSeal} />
-                          <h3>REGULATORY COMPLIANCE CERTIFICATE</h3>
-                          <span className={styles.certIssuer}>{selectedCert.issuer}</span>
-                        </div>
-                        
-                        <div className={styles.certBody}>
-                          <p className={styles.certCertifyText}>
-                            This document serves as verification that the medical supply item specified below conforms to the standards and legal provisions of the regulatory bodies.
-                          </p>
+              {/* Cert Viewer */}
+              <div className={styles.certViewer}>
+                {selectedCert ? (
+                  <div className={styles.certificate}>
+                    <div className={styles.certBorder}>
+                      <div className={styles.certHeader}>
+                        <Award size={32} className={styles.certSeal} />
+                        <h3>REGULATORY COMPLIANCE CERTIFICATE</h3>
+                        <span className={styles.certIssuer}>{selectedCert.issuer}</span>
+                      </div>
+                      
+                      <div className={styles.certBody}>
+                        <p className={styles.certCertifyText}>
+                          This document serves as verification that the medical supply item specified below conforms to the standards and legal provisions of the regulatory bodies.
+                        </p>
 
-                          <div className={styles.certDetailsTable}>
-                            <div className={styles.certDetailRow}>
+                        <div className={styles.certDetailsTable}>
+                          <div className={styles.certDetailRow}>
                               <span>Product Name:</span>
                               <strong>{product.name}</strong>
                             </div>

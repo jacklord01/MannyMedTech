@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning>
         <Script id="manny-analytics" strategy="afterInteractive">
           {`
             // Placeholder for Google Analytics or other tracking
