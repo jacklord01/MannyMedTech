@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRODUCTS, Product } from '@/data/products';
 import { useInquiry } from '@/context/InquiryContext';
@@ -161,8 +162,17 @@ export default function CatalogBrowser() {
               const inCartQty = getCartQuantity(product.id);
               return (
                 <div key={product.id} className={`glass-card ${styles.productCard}`}>
-                  {/* Decorative Medical Icon Header */}
+                  {/* Card Header: real image if set, else branded gradient */}
                   <div className={styles.cardHeaderVisual}>
+                    {product.image ? (
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width:600px) 100vw, 33vw"
+                        style={{ objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
+                      />
+                    ) : null}
                     {product.certifications && product.certifications.length > 0 && (
                       <span className={styles.complianceBadge}>
                         <ShieldCheck size={12} />

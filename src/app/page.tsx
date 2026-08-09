@@ -31,94 +31,159 @@ export default function Home() {
     <div className={styles.homeContainer}>
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={`container ${styles.heroGrid}`}>
-          <div className={styles.heroInfo}>
-            <div className="hero-badge">
-              <ShieldCheck size={16} />
-              <span>WHO GSDP & Ghana FDA Compliant Supplier</span>
-            </div>
-            <h1 className={styles.heroTitle}>
-              Reliable Medical Solutions.<br />
-              <span className="grad-text">Efficient Logistics.</span>
-            </h1>
-            <p className={styles.heroSub}>
-              Manny MedTech & Logistics Ltd. is Ghana's premier distributor of fully certified healthcare supplies, hospital furniture, and temperature-controlled supply chain logistics. Serving hospitals, labs, and pharmacies nationwide and connecting the African diaspora.
-            </p>
-            <div className={styles.heroCtas}>
-              <Link href="/products" className="btn btn-primary">
-                Browse Catalog <ArrowRight size={18} />
-              </Link>
-              <Link href="/logistics" className="btn btn-secondary">
-                Our Logistics Network
-              </Link>
-            </div>
-            
-            {/* Quick trust metrics */}
-            <div className={styles.trustRow}>
-              <div className={styles.trustItem}>
-                <strong>Ghana FDA</strong>
-                <span>Registered Devices</span>
+        <div className="container">
+          {/* Top row: text left, badge right */}
+          <div className={styles.heroGrid}>
+            <div className={styles.heroInfo}>
+              <div className="hero-badge">
+                <ShieldCheck size={16} />
+                <span>WHO GSDP &amp; Ghana FDA Compliant Supplier</span>
               </div>
-              <div className={styles.trustDivider}></div>
-              <div className={styles.trustItem}>
-                <strong>Cold Chain</strong>
-                <span>Vaccines & Reagents</span>
+              <h1 className={styles.heroTitle}>
+                Reliable Medical Solutions.<br />
+                <span className="grad-text">Efficient Logistics.</span>
+              </h1>
+              <p className={styles.heroSub}>
+                Manny MedTech &amp; Logistics Ltd. is Ghana&apos;s premier distributor of certified healthcare supplies, hospital furniture, and supply chain logistics — serving hospitals, labs, clinics, and connecting the African diaspora.
+              </p>
+              <div className={styles.heroCtas}>
+                <Link href="/products" className="btn btn-primary">
+                  Browse Catalog <ArrowRight size={18} />
+                </Link>
+                <Link href="/logistics" className="btn btn-secondary">
+                  Our Logistics Network
+                </Link>
               </div>
-              <div className={styles.trustDivider}></div>
-              <div className={styles.trustItem}>
-                <strong>Diaspora</strong>
-                <span>Procurement Services</span>
+              <div className={styles.trustRow}>
+                <div className={styles.trustItem}>
+                  <strong>Ghana FDA</strong>
+                  <span>Registered Devices</span>
+                </div>
+                <div className={styles.trustDivider}></div>
+                <div className={styles.trustItem}>
+                  <strong>Cold Chain</strong>
+                  <span>Vaccines &amp; Reagents</span>
+                </div>
+                <div className={styles.trustDivider}></div>
+                <div className={styles.trustItem}>
+                  <strong>Diaspora</strong>
+                  <span>Procurement Services</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Van Illustration */}
+            <div className={styles.heroVisual}>
+              <div className={styles.vanScene}>
+                {/* Van SVG */}
+                <svg viewBox="0 0 520 280" className={styles.vanSvg} xmlns="http://www.w3.org/2000/svg">
+                  {/* Road */}
+                  <rect x="0" y="240" width="520" height="40" fill="#e2e8f0" rx="4" />
+                  <rect x="0" y="255" width="520" height="4" fill="#cbd5e1" />
+                  {/* Road dashes */}
+                  {[0,60,120,180,240,300,360,420].map(x => (
+                    <rect key={x} x={x+10} y={257} width={36} height={3} fill="#ffffff" rx="1" />
+                  ))}
+
+                  {/* Van body */}
+                  <rect x="30" y="130" width="360" height="110" rx="12" fill="#ffffff" stroke="#e2e8f0" strokeWidth="2"/>
+
+                  {/* Cab */}
+                  <path d="M330 130 L390 130 Q430 130 440 165 L440 240 L330 240 Z" fill="#0033a0" />
+                  <rect x="338" y="148" width="68" height="50" rx="6" fill="#7dd3fc" opacity="0.85" />
+                  {/* Windscreen lines */}
+                  <line x1="355" y1="148" x2="355" y2="198" stroke="#ffffff" strokeWidth="1" opacity="0.4"/>
+
+                  {/* Side panel — company name */}
+                  <rect x="38" y="148" width="280" height="72" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
+
+                  {/* Logo / brand text on panel */}
+                  <text x="52" y="175" fontFamily="sans-serif" fontSize="13" fontWeight="800" fill="#0033a0">MANNY MEDTECH</text>
+                  <text x="52" y="191" fontFamily="sans-serif" fontSize="9" fontWeight="600" fill="#009639">&amp; LOGISTICS LTD.</text>
+                  <text x="52" y="207" fontFamily="sans-serif" fontSize="7.5" fill="#64748b">Reliable Medical Solutions. Efficient Logistics.</text>
+
+                  {/* Green stripe on van */}
+                  <rect x="30" y="220" width="410" height="8" rx="0" fill="#009639" />
+                  <rect x="30" y="130" width="410" height="8" rx="12" fill="#0033a0" />
+
+                  {/* Wheels */}
+                  <circle cx="120" cy="245" r="24" fill="#1e293b" />
+                  <circle cx="120" cy="245" r="14" fill="#94a3b8" />
+                  <circle cx="120" cy="245" r="6" fill="#1e293b" />
+                  <circle cx="360" cy="245" r="24" fill="#1e293b" />
+                  <circle cx="360" cy="245" r="14" fill="#94a3b8" />
+                  <circle cx="360" cy="245" r="6" fill="#1e293b" />
+
+                  {/* Rear door */}
+                  <rect x="32" y="132" width="2" height="86" fill="#e2e8f0" />
+
+                  {/* Headlight */}
+                  <rect x="435" y="185" width="18" height="10" rx="3" fill="#fef08a" />
+
+                  {/* Floating product card 1 - Laparotomy Pack */}
+                  <g transform="translate(30, 30)">
+                    <rect width="130" height="72" rx="8" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.5" filter="url(#shadow)"/>
+                    <rect width="130" height="5" rx="8" fill="#009639" />
+                    <text x="10" y="22" fontFamily="sans-serif" fontSize="8" fontWeight="700" fill="#0033a0">LAPAROTOMY PACK</text>
+                    <text x="10" y="35" fontFamily="sans-serif" fontSize="7" fill="#64748b">Sterile Surgical Pack</text>
+                    <text x="10" y="48" fontFamily="sans-serif" fontSize="9" fontWeight="800" fill="#009639">GH¢ 350</text>
+                    <text x="10" y="62" fontFamily="sans-serif" fontSize="6.5" fill="#009639">✓ FDA Ghana Registered</text>
+                  </g>
+
+                  {/* Floating product card 2 - C-Section Pack */}
+                  <g transform="translate(360, 22)">
+                    <rect width="130" height="72" rx="8" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.5"/>
+                    <rect width="130" height="5" rx="8" fill="#0033a0" />
+                    <text x="10" y="22" fontFamily="sans-serif" fontSize="8" fontWeight="700" fill="#0033a0">C-SECTION PACK</text>
+                    <text x="10" y="35" fontFamily="sans-serif" fontSize="7" fill="#64748b">Sterile Obstetric Pack</text>
+                    <text x="10" y="48" fontFamily="sans-serif" fontSize="9" fontWeight="800" fill="#009639">GH¢ 400</text>
+                    <text x="10" y="62" fontFamily="sans-serif" fontSize="6.5" fill="#009639">✓ ISO 13485 Certified</text>
+                  </g>
+
+                  {/* Floating product card 3 - Wheelchair */}
+                  <g transform="translate(200, 10)">
+                    <rect width="118" height="68" rx="8" fill="#0033a0" stroke="#0033a0" strokeWidth="1"/>
+                    <text x="10" y="22" fontFamily="sans-serif" fontSize="8" fontWeight="700" fill="#ffffff">WHEELCHAIRS</text>
+                    <text x="10" y="35" fontFamily="sans-serif" fontSize="7" fill="#93c5fd">Mobility Solutions</text>
+                    <text x="10" y="50" fontFamily="sans-serif" fontSize="7" fill="#7dd3fc">Hospital • Clinic • Home</text>
+                    <text x="10" y="63" fontFamily="sans-serif" fontSize="6.5" fill="#86efac">✓ Delivery Nationwide</text>
+                  </g>
+
+                  {/* WhatsApp enquiry chip */}
+                  <g transform="translate(175, 88)">
+                    <rect width="170" height="26" rx="13" fill="#25D366" />
+                    <text x="14" y="17" fontFamily="sans-serif" fontSize="9" fontWeight="700" fill="#ffffff">📦 Enquire on WhatsApp</text>
+                  </g>
+
+                  <defs>
+                    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                      <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.08" />
+                    </filter>
+                  </defs>
+                </svg>
               </div>
             </div>
           </div>
 
-          <div className={styles.heroVisual}>
-            {/* Modern decorative visual representing clinical tech & logistics */}
-            <div className={styles.visualCard}>
-              <div className={styles.visualHeader}>
-                <div className={styles.dot}></div>
-                <div className={styles.dot}></div>
-                <div className={styles.dot}></div>
-                <span className={styles.panelTitle}>Accra Core Distribution Center</span>
-              </div>
-              <div className={styles.visualBody}>
-                <div className={styles.visualMetric}>
-                  <span>Storage Temperature</span>
-                  <h4>4.2 °C <span className={styles.metricState}>Optimal</span></h4>
-                </div>
-                <div className={styles.shipmentList}>
-                  <div className={styles.shipmentItem}>
-                    <div className={styles.shipmentIndicator}></div>
-                    <div>
-                      <h5>Korle Bu Teaching Hospital</h5>
-                      <span>SurgiGold Sutures & ICU Beds • In Transit</span>
-                    </div>
-                  </div>
-                  <div className={styles.shipmentItem}>
-                    <div className={styles.shipmentIndicator}></div>
-                    <div>
-                      <h5>Komfo Anokye Teaching Hospital</h5>
-                      <span>UltraScan V2 Probes • Delivered</span>
-                    </div>
-                  </div>
-                  <div className={styles.shipmentItem}>
-                    <div className={styles.shipmentIndicator}></div>
-                    <div>
-                      <h5>Tamale Regional Hospital</h5>
-                      <span>WHO Vaccine Consignment • Dispatched</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Distribution Centers strip — below hero */}
+          <div className={styles.distStrip}>
+            <div className={styles.distStripHeader}>
+              <Truck size={16} />
+              <span>Accra Core Distribution Centres</span>
             </div>
-            
-            {/* Secondary backing cards representing certification */}
-            <div className={styles.visualBackCard}>
-              <ShieldCheck size={28} className={styles.visualBackIcon} />
-              <div>
-                <h5>ISO 13485:2016</h5>
-                <span>Verified Manufacturer Supply Chain</span>
-              </div>
+            <div className={styles.distList}>
+              {[
+                { name: 'Korle Bu Teaching Hospital', status: 'In Transit', dot: 'green' },
+                { name: 'Komfo Anokye Teaching Hospital', status: 'Delivered', dot: 'blue' },
+                { name: 'Tamale Regional Hospital', status: 'Dispatched', dot: 'green' },
+                { name: 'Accra Ridgeway Clinic', status: 'Scheduled', dot: 'amber' },
+              ].map(c => (
+                <div key={c.name} className={styles.distEntry}>
+                  <span className={`${styles.distDot} ${styles[`dot${c.dot.charAt(0).toUpperCase() + c.dot.slice(1)}`]}`}></span>
+                  <span className={styles.distName}>{c.name}</span>
+                  <span className={styles.distStatus}>{c.status}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

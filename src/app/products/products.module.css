@@ -273,15 +273,16 @@
 }
 
 .cardHeaderVisual {
-  height: 120px;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+  height: 160px;
+  background: linear-gradient(135deg, #e8f0fe 0%, #f0faf5 100%);
   border-bottom: 1px solid var(--card-border);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
-  padding: 16px;
+  padding: 12px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
   position: relative;
+  overflow: hidden;
 }
 
 /* Simulated grid patterns on card visual to make it look premium */

@@ -22,8 +22,15 @@ export interface Product {
   specs: ProductSpec[];
   certifications: ProductCertification[];
   imagePlaceholder: string;
+  /**
+   * Optional product image path relative to /public.
+   * e.g. "/products/laparotomy-pack.jpg"
+   * Drop image files into the /public/products/ folder and set this field.
+   * If omitted, the SVG icon placeholder is shown instead.
+   */
+  image?: string;
   isAvailable: boolean;
-  price?: string; // Optional price (e.g. GH¢ 350) as requested for procedure packs
+  price?: string; // Optional price (e.g. GH¢ 350)
 }
 
 export const PRODUCTS: Product[] = [

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Product, ProductCertification } from '@/data/products';
 import { useInquiry } from '@/context/InquiryContext';
 import { ShieldCheck, FileText, Check, Plus, Minus, Info, Award, Calendar, ExternalLink } from 'lucide-react';
@@ -116,7 +117,17 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
       {/* Product Image/Illustration Area */}
       <div className={styles.visualCol}>
         <div className={styles.illustrationWrapper}>
-          {renderProductIllustration(product.imagePlaceholder)}
+          {product.image ? (
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              style={{ objectFit: 'contain', padding: '20px' }}
+            />
+          ) : (
+            renderProductIllustration(product.imagePlaceholder)
+          )}
         </div>
         
         {/* Compliance checklist summary */}
