@@ -47,7 +47,27 @@ To add an image for a product:
 
 If you do not provide an `image` field, the system will automatically show a premium medical placeholder illustration based on the `imagePlaceholder` field.
 
-## 4. Save and Test
+## 4. Adding Supplier Certificates (PDFs/Images)
+To add a visual document for a product's Supplier Certificate:
+1. Save your certificate file (PDF, JPG, or PNG) inside the `public/certificates/` folder (you may need to create the `certificates` folder first).
+2. Example path: `public/certificates/laparotomy-cert.pdf`.
+3. In `src/data/products.ts`, update the `certifications` array for your product. Add a `documentUrl` field that points to your file:
+   ```typescript
+   certifications: [
+     {
+       title: "Supplier Certificate",
+       code: "CERT-001",
+       issuer: "Factory Name",
+       issueDate: "2023-05-10",
+       expiryDate: "2026-05-09",
+       status: "active",
+       documentUrl: "/certificates/laparotomy-cert.pdf" // ADD THIS LINE
+     }
+   ]
+   ```
+4. Now, when a user clicks the certificate in the product details, it will load that file.
+
+## 5. Save and Test
 Once you have made your changes to `src/data/products.ts`:
 1. Save the file.
 2. Run your local development server (`npm run dev`) if it's not already running.
