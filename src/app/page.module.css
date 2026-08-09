@@ -356,6 +356,121 @@
   display: block;
 }
 
+/* Featured Offers Section */
+.offersSection {
+  padding: 80px 0;
+  background: #f8fafc;
+}
+
+.offersTitle {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 2.2rem;
+}
+
+.offersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.offerCard {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.offerCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.offerBadge {
+  position: absolute;
+  top: 20px;
+  right: -32px;
+  background: var(--success);
+  color: white;
+  padding: 4px 40px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+  box-shadow: var(--shadow-sm);
+}
+
+.offerHeader {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.offerHeader h3 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.offerSubtitle {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.offerPrice {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 8px 24px;
+  border-radius: var(--radius-md);
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 4px;
+}
+
+.offerFeatures {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.offerFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.offerFeatures li svg {
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+.offerAction {
+  display: flex;
+  gap: 16px;
+}
+
+.offerAction a {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+}
+
 /* Divisions Section */
 .divisionsSection {
   padding: 100px 0;
@@ -609,6 +724,10 @@
   
   .divisionsGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .offersGrid {
+    grid-template-columns: 1fr;
   }
 }
 

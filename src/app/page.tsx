@@ -218,6 +218,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured Offers Section */}
+      <section className={styles.offersSection}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className={styles.offersTitle}>This Week's Offers</h2>
+            <p>High-quality procedure packs ready for immediate distribution. Stock up for your surgical centre.</p>
+          </div>
+          <div className={styles.offersGrid}>
+            <div className={styles.offerCard}>
+              <div className={styles.offerBadge}>Featured</div>
+              <div className={styles.offerHeader}>
+                <h3>Cesarean Section Pack</h3>
+                <span className={styles.offerSubtitle}>Sterile Obstetric Procedure Pack</span>
+                <div className={styles.offerPrice}>GH¢ 400</div>
+              </div>
+              <ul className={styles.offerFeatures}>
+                <li><ShieldCheck size={16} /> Sterile and ready to use</li>
+                <li><Activity size={16} /> Designed for cesarean section procedures</li>
+                <li><Layers size={16} /> Includes drapes, gowns, gauze, swabs, table cover & more</li>
+                <li><Truck size={16} /> Suitable for hospitals, maternity clinics, and surgical centers</li>
+              </ul>
+              <div className={styles.offerAction}>
+                <Link href="/products/cesarean-packs" className="btn-primary">View Product</Link>
+                <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
+              </div>
+            </div>
+            
+            <div className={styles.offerCard}>
+              <div className={styles.offerBadge}>Featured</div>
+              <div className={styles.offerHeader}>
+                <h3>Laparotomy Pack</h3>
+                <span className={styles.offerSubtitle}>Sterile Surgical Procedure Pack</span>
+                <div className={styles.offerPrice}>GH¢ 350</div>
+              </div>
+              <ul className={styles.offerFeatures}>
+                <li><ShieldCheck size={16} /> Sterile and ready to use</li>
+                <li><Activity size={16} /> Designed for laparotomy procedures</li>
+                <li><Layers size={16} /> Includes drapes, gowns, gauze, swabs, table cover & more</li>
+                <li><Truck size={16} /> Suitable for hospitals, clinics, and surgical centers</li>
+              </ul>
+              <div className={styles.offerAction}>
+                <Link href="/products/laparotomy-packs" className="btn-primary">View Product</Link>
+                <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Divisions Section */}
       <section className={styles.divisionsSection}>
         <div className="container">
