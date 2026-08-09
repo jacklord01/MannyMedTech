@@ -10,7 +10,8 @@ import {
   Award, 
   Stethoscope, 
   Warehouse, 
-  HeartHandshake 
+  HeartHandshake,
+  Layers
 } from 'lucide-react';
 import styles from './page.module.css';
 
