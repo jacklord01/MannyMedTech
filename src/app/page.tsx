@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Truck, 
   ShieldCheck, 
@@ -199,7 +200,7 @@ export default function Home() {
           <div className={styles.statCard}>
             <h3>100%</h3>
             <p>Certified Catalog</p>
-            <span>Every single device is vetted for FDA Ghana, CE or ISO standards.</span>
+            <span>Every single device is backed by official Supplier Certificates.</span>
           </div>
           <div className={styles.statCard}>
             <h3>16</h3>
@@ -229,17 +230,14 @@ export default function Home() {
           <div className={styles.offersGrid}>
             <div className={styles.offerCard}>
               <div className={styles.offerBadge}>Featured</div>
-              <div className={styles.offerHeader}>
-                <h3>Cesarean Section Pack</h3>
-                <span className={styles.offerSubtitle}>Sterile Obstetric Procedure Pack</span>
-                <div className={styles.offerPrice}>GH¢ 400</div>
+              <div className={styles.offerImageWrapper}>
+                <Image 
+                  src="/offers/cesarean-offer.jpg" 
+                  alt="Cesarean Section Pack Offer" 
+                  fill 
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
-              <ul className={styles.offerFeatures}>
-                <li><ShieldCheck size={16} /> Sterile and ready to use</li>
-                <li><Activity size={16} /> Designed for cesarean section procedures</li>
-                <li><Layers size={16} /> Includes drapes, gowns, gauze, swabs, table cover & more</li>
-                <li><Truck size={16} /> Suitable for hospitals, maternity clinics, and surgical centers</li>
-              </ul>
               <div className={styles.offerAction}>
                 <Link href="/products/cesarean-packs" className="btn-primary">View Product</Link>
                 <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
@@ -248,17 +246,14 @@ export default function Home() {
             
             <div className={styles.offerCard}>
               <div className={styles.offerBadge}>Featured</div>
-              <div className={styles.offerHeader}>
-                <h3>Laparotomy Pack</h3>
-                <span className={styles.offerSubtitle}>Sterile Surgical Procedure Pack</span>
-                <div className={styles.offerPrice}>GH¢ 350</div>
+              <div className={styles.offerImageWrapper}>
+                <Image 
+                  src="/offers/laparotomy-offer.jpg" 
+                  alt="Laparotomy Pack Offer" 
+                  fill 
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
-              <ul className={styles.offerFeatures}>
-                <li><ShieldCheck size={16} /> Sterile and ready to use</li>
-                <li><Activity size={16} /> Designed for laparotomy procedures</li>
-                <li><Layers size={16} /> Includes drapes, gowns, gauze, swabs, table cover & more</li>
-                <li><Truck size={16} /> Suitable for hospitals, clinics, and surgical centers</li>
-              </ul>
               <div className={styles.offerAction}>
                 <Link href="/products/laparotomy-packs" className="btn-primary">View Product</Link>
                 <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>

@@ -237,7 +237,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
             className={`${styles.tabBtn} ${activeTab === 'certs' ? styles.tabBtnActive : ''}`}
             onClick={() => setActiveTab('certs')}
           >
-            Certifications ({product.certifications.length})
+            Supplier Certificates ({product.certifications.length})
           </button>
         </div>
 

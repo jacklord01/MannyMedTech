@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useInquiry } from '@/context/InquiryContext';
 import { ShoppingBag, X, Trash2, Plus, Minus, Menu, FileText, Check, ShieldCheck, Activity } from 'lucide-react';
@@ -26,13 +27,15 @@ export const Navbar: React.FC = () => {
         <div className={`container ${styles.headerContainer}`}>
           {/* Logo */}
           <Link href="/" className={styles.logo} onClick={() => setMobileMenuOpen(false)}>
-            <div className={styles.logoIcon}>
-              <Activity className={styles.activityIcon} size={22} />
-              <ShieldCheck className={styles.shieldIcon} size={14} />
-            </div>
-            <div className={styles.logoText}>
-              <span className={styles.brandName}>Manny MedTech</span>
-              <span className={styles.slogan}>Reliable Medical Solutions</span>
+            <div className={styles.logoImageWrapper}>
+              <Image 
+                src="/logo.png" 
+                alt="Manny MedTech Logo" 
+                width={200}
+                height={60}
+                style={{ objectFit: 'contain' }}
+                priority
+              />
             </div>
           </Link>
 

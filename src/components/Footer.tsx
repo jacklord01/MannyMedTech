@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, ShieldCheck, Activity } from 'lucide-react';
 import styles from './Footer.module.css';
 
@@ -11,11 +12,14 @@ export const Footer: React.FC = () => {
       <div className={`container ${styles.footerGrid}`}>
         {/* Brand Column */}
         <div className={styles.brandCol}>
-          <div className={styles.logo}>
-            <div className={styles.logoIcon}>
-              <Activity size={20} />
-            </div>
-            <h4>Manny MedTech</h4>
+          <div className={styles.logoImageWrapper}>
+            <Image 
+              src="/logo.png" 
+              alt="Manny MedTech Logo" 
+              width={180}
+              height={55}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
           <p className={styles.brandSlogan}>
             Reliable Medical Solutions. Efficient Logistics.

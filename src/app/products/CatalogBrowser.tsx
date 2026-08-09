@@ -176,7 +176,7 @@ export default function CatalogBrowser() {
                     {product.certifications && product.certifications.length > 0 && (
                       <span className={styles.complianceBadge}>
                         <ShieldCheck size={12} />
-                        {product.certifications[0].issuer.includes("Ghana") ? "FDA Ghana" : "Certified"}
+                        Supplier Certificate
                       </span>
                     )}
                   </div>
