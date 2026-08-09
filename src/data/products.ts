@@ -468,5 +468,53 @@ export const PRODUCTS: Product[] = [
     ],
     imagePlaceholder: "logistics",
     isAvailable: true
+  },
+  {
+    id: "heart-monitors",
+    name: "Heart Monitors",
+    category: "Medical Equipment",
+    shortDescription: "Advanced cardiovascular monitoring systems for hospitals, clinics, and personal care across Ghana.",
+    detailedDescription: "High-precision heart monitors and cardiovascular telemetry systems. Essential for continuous patient monitoring in intensive care units, emergency wards, and specialized maternity or dental clinics. Supplied to medical facilities in Accra, Kumasi, and all 16 regions.",
+    specs: [
+      { label: "Application", value: "Cardiovascular monitoring" },
+      { label: "Display", value: "High-resolution color LCD" },
+      { label: "Tracking", value: "Continuous ECG, SpO2, NIBP, Respiration" }
+    ],
+    certifications: [
+      {
+        title: "CE Mark Medical Devices",
+        code: "CE-HM-102",
+        issuer: "TÜV Rheinland",
+        issueDate: "2023-08-20",
+        expiryDate: "2028-08-19",
+        status: "active"
+      }
+    ],
+    imagePlaceholder: "ecg",
+    isAvailable: true
+  },
+  {
+    id: "diabetic-monitors",
+    name: "Diabetic Sugar Level Check Equipment",
+    category: "Medical Equipment",
+    shortDescription: "Precision blood glucose monitoring systems and test strips for diabetes management.",
+    detailedDescription: "Accurate and reliable diabetic monitors for blood sugar level checking. Designed for rapid results and ease of use in hospitals, clinics, and for personal home care. Distributed across all major towns and cities in Ghana for effective diabetes management.",
+    specs: [
+      { label: "Application", value: "Blood glucose monitoring" },
+      { label: "Read Time", value: "5 seconds" },
+      { label: "Sample Size", value: "0.5 µL blood" }
+    ],
+    certifications: [
+      {
+        title: "ISO 15197:2013 In vitro diagnostic test systems",
+        code: "ISO-DM-554",
+        issuer: "BSI Group",
+        issueDate: "2024-02-10",
+        expiryDate: "2027-02-09",
+        status: "active"
+      }
+    ],
+    imagePlaceholder: "ppe",
+    isAvailable: true
   }
 ];
