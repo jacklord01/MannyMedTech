@@ -342,7 +342,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
