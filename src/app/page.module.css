@@ -460,6 +460,15 @@
   flex-shrink: 0;
 }
 
+.offerImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 24px;
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+
 .offerAction {
   display: flex;
   gap: 16px;
