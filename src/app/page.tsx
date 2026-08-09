@@ -17,6 +17,19 @@ import {
 import styles from './page.module.css';
 
 export default function Home() {
+  const featuredOffers = [
+    { 
+      name: "Cesarean Section Pack Offer", 
+      image: "/offers/cesarean-offer.jpg",
+      productId: "cesarean-packs" 
+    },
+    { 
+      name: "Laparotomy Pack Offer", 
+      image: "/offers/laparotomy-offer.jpg",
+      productId: "laparotomy-packs" 
+    }
+  ];
+
   const divisions = [
     { name: "Medical Equipment", icon: <Stethoscope size={28} />, desc: "ECGs, Ultrasounds, Patient Monitors, and critical diagnostic units." },
     { name: "Consumables", icon: <Activity size={28} />, desc: "Sterile syringes, cannulas, bandages, and clinical consumables." },
@@ -228,37 +241,23 @@ export default function Home() {
             <p>High-quality procedure packs ready for immediate distribution. Stock up for your surgical centre.</p>
           </div>
           <div className={styles.offersGrid}>
-            <div className={styles.offerCard}>
-              <div className={styles.offerBadge}>Featured</div>
-              <div className={styles.offerImageWrapper}>
-                <Image 
-                  src="/offers/cesarean-offer.jpg" 
-                  alt="Cesarean Section Pack Offer" 
-                  fill 
-                  style={{ objectFit: 'contain' }}
-                />
+            {featuredOffers.map((offer, idx) => (
+              <div key={idx} className={styles.offerCard}>
+                <div className={styles.offerBadge}>Featured</div>
+                <div className={styles.offerImageWrapper}>
+                  <Image 
+                    src={offer.image} 
+                    alt={offer.name} 
+                    fill 
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+                <div className={styles.offerAction}>
+                  <Link href={`/products/${offer.productId}`} className="btn-primary">View Product</Link>
+                  <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
+                </div>
               </div>
-              <div className={styles.offerAction}>
-                <Link href="/products/cesarean-packs" className="btn-primary">View Product</Link>
-                <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
-              </div>
-            </div>
-            
-            <div className={styles.offerCard}>
-              <div className={styles.offerBadge}>Featured</div>
-              <div className={styles.offerImageWrapper}>
-                <Image 
-                  src="/offers/laparotomy-offer.jpg" 
-                  alt="Laparotomy Pack Offer" 
-                  fill 
-                  style={{ objectFit: 'contain' }}
-                />
-              </div>
-              <div className={styles.offerAction}>
-                <Link href="/products/laparotomy-packs" className="btn-primary">View Product</Link>
-                <Link href="/inquire" className="btn-outline">Order Now via WhatsApp</Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
