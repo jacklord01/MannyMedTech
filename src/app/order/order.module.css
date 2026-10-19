@@ -1,0 +1,67 @@
+.page { padding: 48px 0 80px; }
+.wrap { max-width: 920px; }
+.notice { background: rgba(var(--primary-rgb), 0.07); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px; color: var(--text-primary); }
+.noticeGood { background: rgba(0, 150, 57, 0.09); border-left-color: var(--secondary); }
+.noticeWarn { background: rgba(202, 138, 4, 0.12); border-left-color: var(--warning); }
+.payBox { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; background: rgba(0, 150, 57, 0.08); border: 1px solid rgba(0, 150, 57, 0.25); border-radius: var(--radius-md); padding: 18px 22px; margin-bottom: 20px; }
+.payBox strong { font-size: 1.3rem; color: var(--text-primary); }
+.payBtn { background: var(--secondary); color: #fff; border: 0; }
+.payBtn:hover { background: var(--secondary-hover); }
+.muted { color: var(--text-muted); font-size: 0.9rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.actionButtons { display: flex; gap: 10px; flex-wrap: wrap; }
+.status { display: inline-block; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.status_paid { background: rgba(0, 150, 57, 0.12); color: var(--secondary); }
+.status_awaiting_payment { background: rgba(202, 138, 4, 0.15); color: #8a5b00; }
+.status_quote_requested { background: rgba(var(--primary-rgb), 0.1); color: var(--primary-light); }
+.status_cancelled { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+
+/* Invoice document: black on white, thin grey rules, no colour fills — cheap to print. */
+.invoice { background: #fff; color: #111; border: 1px solid #d4d4d4; padding: 44px 48px; font-size: 0.93rem; line-height: 1.5; }
+.invoice h1, .invoice h2, .invoice strong, .invoice dt { color: #111; }
+.top { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid #111; }
+.brand { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 800; letter-spacing: 0.01em; text-transform: uppercase; }
+.tagline { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #555; margin-top: 2px; }
+.issuer { font-style: normal; display: flex; flex-direction: column; text-align: right; font-size: 0.85rem; color: #333; }
+.titleRow { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin: 24px 0; }
+.titleRow h1 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em; line-height: 1; }
+.facts { display: grid; grid-template-columns: auto auto; gap: 2px 14px; font-size: 0.9rem; }
+.facts dt { font-weight: 700; text-align: right; }
+.facts dd { margin: 0; }
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.box { border: 1px solid #cfcfcf; padding: 12px 14px; }
+.box h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+.box p { margin: 0; }
+.terms { margin-top: 8px !important; font-size: 0.85rem; }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 8px 10px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-top: 1px solid #111; border-bottom: 1px solid #111; color: #111; }
+.table td { padding: 10px; border-bottom: 1px solid #dcdcdc; vertical-align: top; }
+.no { width: 44px; }
+.table .num { text-align: right; white-space: nowrap; }
+.lineNote { display: block; font-size: 0.8rem; color: #555; }
+.totals { margin-left: auto; width: min(320px, 100%); margin-top: 12px; }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 10px; }
+.total { font-weight: 800; font-size: 1.05rem; border-top: 1px solid #111; border-bottom: 3px double #111; margin-top: 4px; }
+.words { margin-top: 18px; font-size: 0.9rem; }
+.instructions { margin-top: 14px; font-size: 0.88rem; }
+.closing { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; align-items: end; }
+.signature { position: relative; display: flex; flex-direction: column; font-size: 0.85rem; color: #333; }
+.sigLine { border-bottom: 1px solid #111; height: 48px; margin-bottom: 6px; width: min(260px, 100%); }
+.stamp { position: absolute; top: -6px; left: 120px; border: 2px solid #111; color: #111; font-weight: 800; letter-spacing: 0.2em; padding: 2px 12px; transform: rotate(-8deg); }
+.notes h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+.notes ol { padding-left: 18px; font-size: 0.82rem; color: #333; }
+.foot { margin-top: 28px; padding-top: 12px; border-top: 1px solid #cfcfcf; font-size: 0.8rem; color: #555; }
+
+@media (max-width: 640px) {
+  .invoice { padding: 20px; }
+  .meta, .closing { grid-template-columns: 1fr; }
+  .issuer { text-align: left; }
+}
+
+@media print {
+  .noPrint { display: none !important; }
+  .page { padding: 0; }
+  .invoice { border: 0; padding: 0; }
+  @page { margin: 14mm; }
+}

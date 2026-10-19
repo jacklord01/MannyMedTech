@@ -2,12 +2,15 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useInquiry } from '@/context/InquiryContext';
 import {
   FileText, MapPin, Building, Phone, Mail, User, Trash2,
-  ArrowLeft, CheckCircle, ClipboardList, Loader2, Send, MessageCircle
+  ArrowLeft, ClipboardList, Loader2, Send, MessageCircle
 } from 'lucide-react';
 import styles from './inquire.module.css';
+import { formatCedis } from '@/lib/money';
+import { unitPriceOf } from '@/lib/orders';
 
 const WHATSAPP_NUMBER = '233202776944';
 
@@ -18,6 +21,7 @@ function buildWhatsAppMessage(
     phone: string;
     email: string;
     location: string;
+    address: string;
     shippingNotes: string;
   },
   items: Array<{ product: { name: string; category: string; price?: string }; quantity: number; notes?: string }>,
@@ -56,6 +60,7 @@ function buildWhatsAppMessage(
 
 export default function InquirePage() {
   const { items, removeItem, clearCart, updateQuantity } = useInquiry();
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -63,16 +68,19 @@ export default function InquirePage() {
     phone: '',
     email: '',
     location: '',
+    address: '',
     shippingNotes: '',
   });
+  const [honeypot, setHoneypot] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [quoteId, setQuoteId] = useState('');
   const [whatsappUrl, setWhatsappUrl] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const pricedSubtotal = items.reduce((sum, item) => sum + (unitPriceOf(item.product) ?? 0) * item.quantity, 0);
+  const allPriced = items.length > 0 && items.every((item) => unitPriceOf(item.product) !== null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -91,80 +99,35 @@ export default function InquirePage() {
     setIsSubmitting(true);
     setErrorMsg('');
 
-    // Generate a local quote ID
-    const generatedId = `MMT-${Date.now().toString(36).toUpperCase()}`;
-
-    // Build the WhatsApp message
-    const message = buildWhatsAppMessage(formData, items, generatedId);
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-    // Fire API log in background (non-blocking)
-    fetch('/api/inquire', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        clientInfo: formData,
-        quoteId: generatedId,
-        items: items.map((item) => ({
-          productId: item.product.id,
-          name: item.product.name,
-          category: item.product.category,
-          quantity: item.quantity,
-          notes: item.notes,
-        })),
-      }),
-    }).catch(() => {/* silent fail — WA is primary channel */});
-
-    // Open WhatsApp immediately
-    window.open(waUrl, '_blank');
-
-    setQuoteId(generatedId);
-    setWhatsappUrl(waUrl);
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-    clearCart();
+    try {
+      const response = await fetch('/api/inquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          clientInfo: formData,
+          website: honeypot || undefined,
+          items: items.map((item) => ({
+            productId: item.product.id,
+            quantity: item.quantity,
+            notes: item.notes || undefined,
+          })),
+        }),
+      });
+      const result = (await response.json()) as { url?: string; quoteId?: string; message?: string };
+      if (!response.ok || !result.url) {
+        throw new Error(result.message || 'We could not save your order.');
+      }
+      clearCart();
+      router.push(result.url);
+    } catch (error) {
+      // Fall back to WhatsApp so the request is never lost.
+      const fallbackId = `MMT-${Date.now().toString(36).toUpperCase()}`;
+      setQuoteId(fallbackId);
+      setWhatsappUrl(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage(formData, items, fallbackId))}`);
+      setErrorMsg(error instanceof Error ? error.message : 'We could not save your order.');
+      setIsSubmitting(false);
+    }
   };
-
-  /* ── Success Screen ─────────────────────────────────────────────── */
-  if (submitSuccess) {
-    return (
-      <div className={styles.inquirePage}>
-        <div className="container">
-          <div className={styles.successCard}>
-            <CheckCircle className={styles.successIcon} size={64} />
-            <h2>Quote Request Sent!</h2>
-            <p className={styles.successSub}>
-              Your WhatsApp has been opened with a pre-filled message. If it didn't open automatically, tap the button below.
-            </p>
-            <p className={styles.successRef}>Reference: <strong>{quoteId}</strong></p>
-
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`btn ${styles.whatsappSuccessBtn}`}
-            >
-              <MessageCircle size={20} /> Open WhatsApp Chat
-            </a>
-
-            <div className={styles.successDetails}>
-              <h4>What happens next?</h4>
-              <ol>
-                <li>Our Accra sales desk receives your WhatsApp message instantly.</li>
-                <li>We confirm stock availability and calculate pricing and shipping costs within 1–2 business hours.</li>
-                <li>A full PDF quotation will be sent to your whatsapp/email.</li>
-              </ol>
-            </div>
-
-            <div className={styles.successButtons}>
-              <Link href="/products" className="btn btn-primary">Return to Catalog</Link>
-              <Link href="/" className="btn btn-secondary">Go to Home</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   /* ── Main Form ──────────────────────────────────────────────────── */
   return (
@@ -172,13 +135,13 @@ export default function InquirePage() {
       {/* Banner */}
       <div className={styles.banner}>
         <div className="container">
-          <h1>Request for Quote (RFQ)</h1>
-          <p>Fill in your details below. Your quote will be sent directly to us via WhatsApp for the fastest possible response.</p>
+          <h1>Order &amp; Request for Quote</h1>
+          <p>Priced items are invoiced instantly with a secure Pay now button. Equipment that needs a quotation is priced by our sales desk and invoiced to you, usually within one business day.</p>
 
           {/* Channel strip */}
           <div className={styles.channelStrip}>
             <span className={styles.channelPill}>
-              <MessageCircle size={14} /> WhatsApp — Primary (Instant)
+              <FileText size={14} /> Instant invoice — pay by card, MoMo or bank
             </span>
             <span className={styles.channelPill}>
               <Mail size={14} /> Email — PDF Quote Follow-up
@@ -210,10 +173,22 @@ export default function InquirePage() {
             <div className={styles.formContainer}>
               <h2 className={styles.formTitle}>Facility &amp; Contact Details</h2>
               <p className={styles.formSub}>
-                Submitting this form opens WhatsApp with a pre-filled message containing your full quote list — no copy-pasting needed.
+                Your invoice (or quotation) and Paystack receipt will be sent to the email address you provide.
               </p>
 
-              {errorMsg && <div className={styles.errorAlert}>{errorMsg}</div>}
+              {errorMsg && (
+                <div className={styles.errorAlert} role="alert">
+                  {errorMsg}
+                  {whatsappUrl && (
+                    <>
+                      {' '}
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        Send your list on WhatsApp instead (ref {quoteId})
+                      </a>
+                    </>
+                  )}
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className={styles.rfqForm}>
                 <div className={styles.formGroup}>
@@ -280,6 +255,21 @@ export default function InquirePage() {
                 </div>
 
                 <div className={styles.formGroup}>
+                  <label htmlFor="address"><MapPin size={16} /> Delivery Address (optional)</label>
+                  <input
+                    type="text" id="address" name="address"
+                    placeholder="e.g., Spintex Road, near Coca-Cola roundabout / GhanaPostGPS GA-123-4567"
+                    value={formData.address} onChange={handleInputChange}
+                    className={styles.inputField}
+                  />
+                </div>
+
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
+                  <label htmlFor="website">Website</label>
+                  <input id="website" name="website" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                </div>
+
+                <div className={styles.formGroup}>
                   <label htmlFor="shippingNotes">
                     <FileText size={16} /> Special Shipping or Regulatory Requests
                   </label>
@@ -298,14 +288,18 @@ export default function InquirePage() {
                   className={`btn ${styles.whatsappSubmitBtn}`}
                 >
                   {isSubmitting ? (
-                    <><Loader2 className={styles.spinner} size={18} /> Preparing message...</>
+                    <><Loader2 className={styles.spinner} size={18} /> Saving your order...</>
+                  ) : allPriced ? (
+                    <><Send size={18} /> Place Order &amp; Get Invoice</>
                   ) : (
-                    <><MessageCircle size={18} /> Send Quote via WhatsApp</>
+                    <><Send size={18} /> Submit for Quotation</>
                   )}
                 </button>
 
                 <p className={styles.submitNote}>
-                  This opens WhatsApp with your full order pre-filled. You can review before sending. A confirmation is also logged on our server.
+                  {allPriced
+                    ? 'You will be taken to your invoice, where you can pay securely with Paystack or message us on WhatsApp.'
+                    : 'You will get a reference and a private link to track your quotation. Once priced, the same link becomes your invoice with a Pay now button.'}
                 </p>
               </form>
             </div>
@@ -360,9 +354,14 @@ export default function InquirePage() {
               </div>
 
               <div className={styles.summaryTotalRow}>
-                <span>Wholesale Quote:</span>
-                <strong>CONTACT SALES</strong>
+                <span>{allPriced ? 'Order Total:' : 'Priced Items:'}</span>
+                <strong>{formatCedis(pricedSubtotal)}</strong>
               </div>
+              {!allPriced && (
+                <p className={styles.summaryNotice}>
+                  * Items without a listed price will be quoted by our sales desk before you are invoiced.
+                </p>
+              )}
               <p className={styles.summaryNotice}>
                 * Pricing includes import clearance, delivery zones and order volume discounts. Verified against FDA Ghana databases.
               </p>

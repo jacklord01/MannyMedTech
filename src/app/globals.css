@@ -281,3 +281,9 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Printing invoices: show only the document */
+@media print {
+  body > header, body > footer, body > div > header, body > div > footer { display: none !important; }
+  body { background: #fff; }
+}
