@@ -32,6 +32,8 @@ export default async function OrderPage({
   const canPay = order.status === "awaiting_payment" && order.total > 0;
   const shareLink = `${site.url}/order/${order.id}?t=${order.accessToken}`;
   const { customer } = order;
+  const [brandFirst, ...brandWords] = site.legalName.split(" ");
+  const brandRest = brandWords.join(" ");
 
   return (
     <div className={styles.page}>
@@ -77,7 +79,8 @@ export default async function OrderPage({
         <div className={`${styles.actions} ${styles.noPrint}`}>
           <span className={`${styles.status} ${styles[`status_${order.status}`]}`}>{statusLabels[order.status]}</span>
           <span className={styles.actionButtons}>
-            <PrintButton label={isInvoice ? "Print / save invoice PDF" : "Print request"} />
+            <PrintButton label={isInvoice ? "Print / save PDF" : "Print request"} />
+            <PrintButton label="Print ink-saving" ink />
             <a className="btn btn-secondary" href={whatsappLink(`Hello Manny MedTech, regarding ${order.number}: ${shareLink}`)} target="_blank" rel="noopener noreferrer">
               Message us on WhatsApp
             </a>
@@ -87,7 +90,9 @@ export default async function OrderPage({
         <article className={styles.invoice}>
           <div className={styles.top}>
             <div>
-              <div className={styles.brand}>{site.legalName}</div>
+              <div className={styles.brand}>
+                {brandFirst} <span>{brandRest}</span>
+              </div>
               <div className={styles.tagline}>Medical Equipment &amp; Accessories Supplier</div>
             </div>
             <address className={styles.issuer}>

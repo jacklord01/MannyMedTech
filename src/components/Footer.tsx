@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
             <li>
               <MapPin size={18} className={styles.contactIcon} />
               <span>
-                Manny Heights, Spintex Road, Accra, Ghana
+                Danyame, Block 71A, Kumasi, Ghana
               </span>
             </li>
             <li>
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
             </li>
             <li>
               <Mail size={18} className={styles.contactIcon} />
-              <a href="mailto:maame.jenny@yahoo.com">maame.jenny@yahoo.com</a>
+              <a href="mailto:mannymedtech@gmail.com">mannymedtech@gmail.com</a>
             </li>
           </ul>
         </div>
