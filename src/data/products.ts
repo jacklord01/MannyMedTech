@@ -73,6 +73,7 @@ export const PRODUCTS: Product[] = [
       }
     ],
     imagePlaceholder: "sutures",
+    image: "/products/laparotomy-pack.jpg",
     isAvailable: true
   },
   {
@@ -108,6 +109,7 @@ export const PRODUCTS: Product[] = [
       }
     ],
     imagePlaceholder: "sutures",
+    image: "/products/cesarean-section-pack.jpg",
     isAvailable: true
   },
   {
@@ -309,6 +311,37 @@ export const PRODUCTS: Product[] = [
         status: "active"
       }
     ],
+    imagePlaceholder: "ultrasound",
+    isAvailable: true
+  },
+  {
+    id: "digital-xray-system",
+    name: "Digital X-Ray Systems (DR)",
+    category: "Medical Equipment",
+    shortDescription: "Fixed digital radiography rooms for hospitals and diagnostic centres. Priced on quotation after a site assessment.",
+    detailedDescription: "Floor- or ceiling-mounted digital radiography systems with flat-panel detector and acquisition workstation for general radiography. We assess room layout, power supply and shielding before quoting, and can coordinate installation and operator training at hospitals and imaging centres across Ghana.",
+    specs: [
+      { label: "Application", value: "General radiography for hospitals and diagnostic centres" },
+      { label: "Detector", value: "Flat-panel digital detector with acquisition workstation" },
+      { label: "Mounting", value: "Floor-mounted or ceiling-suspended options" },
+      { label: "Services", value: "Site assessment, installation and operator training can be arranged" }
+    ],
+    certifications: [],
+    imagePlaceholder: "ultrasound",
+    isAvailable: true
+  },
+  {
+    id: "mobile-xray-unit",
+    name: "Mobile X-Ray Units",
+    category: "Medical Equipment",
+    shortDescription: "Bedside X-ray for wards, ICU, theatres and emergency units. Priced on quotation.",
+    detailedDescription: "Mobile digital X-ray units for bedside imaging where patients cannot be moved to the X-ray room — ICU, wards, theatres and emergency departments. Options vary by generator power and detector type; tell us your workload and we will recommend a configuration.",
+    specs: [
+      { label: "Application", value: "Bedside imaging in ICU, wards, theatre and emergency" },
+      { label: "Detector", value: "Digital flat-panel or CR-compatible options" },
+      { label: "Mobility", value: "Motorised or manual drive, depending on model" }
+    ],
+    certifications: [],
     imagePlaceholder: "ultrasound",
     isAvailable: true
   },

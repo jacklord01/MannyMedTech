@@ -251,6 +251,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
           </div>
 
           {/* Section 3: Certifications */}
+          {product.certifications.length > 0 && (
           <div className={styles.contentSection}>
             <div className={styles.certsLayout}>
               {/* Cert List */}
@@ -342,6 +343,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                 </div>
               </div>
             </div>
+          )}
           </div>
         </div>
       </div>

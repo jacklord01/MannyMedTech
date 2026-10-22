@@ -1,3 +1,33 @@
+# Manny MedTech website
+
+## Online orders, invoices & payments
+
+Customers add products to the **Inquiry List** and submit it at `/inquire`.
+
+- **All items priced** (e.g. Laparotomy Packs `GH¢ 350`): an invoice is issued immediately at a private link (`/order/<id>?t=<token>`) with a **Pay now with Paystack** button (card, mobile money, bank).
+- **Any item without a price** (e.g. X-ray systems): the order is saved as a quotation request. Staff price it at **`/admin`** (password protected) and issue the invoice. The same link then shows the invoice and Pay now button, and the sales desk can send it on WhatsApp in one click.
+- Payments are confirmed server-side: the site re-verifies each transaction with Paystack (amount, currency and invoice) before marking it **Paid**. The Paystack webhook handles customers who close their browser during payment.
+- Invoices are ink-friendly (black on white) and include amount in words, notes and a signature line. Use **Print / save invoice PDF**.
+- Staff can record offline payments (bank transfer, cash, MoMo) and cancel orders.
+
+Prices are read from the `price` field in `src/data/products.ts` (`"GH¢ 350"`). Remove `price` to make an item quote-only.
+
+### Setup
+
+1. `cp .env.example .env.local` and fill it in (all settings are described there).
+2. **Orders database**: create a Supabase project, run `supabase/schema.sql` in its SQL editor, then set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`. Without these, local development saves orders to `.data/orders.json`; production refuses to run without a database.
+3. **Paystack**: set `PAYSTACK_SECRET_KEY` (test key first). In the Paystack dashboard → Settings → API Keys & Webhooks, set the webhook URL to `https://<your-domain>/api/paystack/webhook`. Make a test payment, check the invoice shows Paid, then switch to the live key.
+4. Set `NEXT_PUBLIC_SITE_URL` to the live domain **before building**, and `ADMIN_PASSWORD` (12+ characters).
+5. **Tax**: `INVOICE_TAX_RATE_PERCENT` is 0 by default. Confirm the VAT/levy rate with your accountant before setting it.
+
+```bash
+npm install
+npm run dev        # http://localhost:3001
+npm test           # pricing, totals and amount-in-words tests
+```
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

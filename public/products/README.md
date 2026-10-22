@@ -29,3 +29,5 @@ image: "/products/laparotomy-pack.jpg",
 - `protective-goggles`
 - `wheelchairs`
 - `dental-xray`
+- `digital-xray-system`
+- `mobile-xray-unit`

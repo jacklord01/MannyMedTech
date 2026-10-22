@@ -576,3 +576,7 @@
     max-width: 120px;
   }
 }
+
+@media print {
+  .drawer, .backdrop { display: none !important; }
+}

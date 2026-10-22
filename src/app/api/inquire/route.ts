@@ -1,66 +1,59 @@
-import { NextResponse } from 'next/server';
+import { randomBytes } from "node:crypto";
+import { NextResponse } from "next/server";
+import { orderUrl } from "@/lib/access";
+import { invoiceSettings } from "@/lib/config";
+import { buildLines, orderRequestSchema } from "@/lib/orders";
+import { orders } from "@/lib/store";
 
+/**
+ * Saves the customer's inquiry list as a quotation request (no prices are shown to the customer).
+ * Sales staff call the customer, then price it at /admin to issue an invoice with a Pay now button.
+ * Catalogue prices are kept on each line only to pre-fill the staff pricing form.
+ */
 export async function POST(request: Request) {
+  const json: unknown = await request.json().catch(() => null);
+  const parsed = orderRequestSchema.safeParse(json);
+  if (!parsed.success) {
+    const fieldErrors: Record<string, string> = {};
+    for (const issue of parsed.error.issues) {
+      const key = String(issue.path[issue.path.length - 1] ?? "form");
+      fieldErrors[key] ??= issue.message;
+    }
+    return NextResponse.json({ message: Object.values(fieldErrors)[0] ?? "Please check your details.", fieldErrors }, { status: 400 });
+  }
+
+  let lines;
   try {
-    const body = await request.json();
-    const { clientInfo, items } = body;
+    lines = buildLines(parsed.data.items);
+  } catch {
+    return NextResponse.json({ message: "One of the items is no longer available. Please refresh your list." }, { status: 400 });
+  }
 
-    // Validation
-    if (!clientInfo || !items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json(
-        { message: "Missing required fields or inquiry items list is empty." },
-        { status: 400 }
-      );
-    }
+  const { taxLabel, taxRatePercent } = invoiceSettings();
 
-    const { fullName, facilityName, phone, email, location } = clientInfo;
-    if (!fullName || !facilityName || !phone || !email || !location) {
-      return NextResponse.json(
-        { message: "Contact information, hospital name, and delivery region are required." },
-        { status: 400 }
-      );
-    }
-
-    // Generate unique Quote/RFQ Reference ID
-    const randomSuffix = Math.floor(10000 + Math.random() * 90000);
-    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const quoteId = `MMT-${dateStr}-${randomSuffix}`;
-
-    // Log to simulated storage (ready for Vercel Postgres / AWS RDS)
-    console.log("=========================================");
-    console.log(`[RFQ RECEIVED] Reference: ${quoteId}`);
-    console.log("-----------------------------------------");
-    console.log("Facility Name:", facilityName);
-    console.log("Contact Name :", fullName);
-    console.log("Phone        :", phone);
-    console.log("Email        :", email);
-    console.log("Location     :", location);
-    console.log("Notes        :", clientInfo.shippingNotes || "None");
-    console.log("-----------------------------------------");
-    console.log("Items List:");
-    items.forEach((item, idx) => {
-      console.log(`  ${idx + 1}. [Qty: ${item.quantity}] ${item.name} (${item.category})`);
-      if (item.notes) console.log(`      * Requirement: ${item.notes}`);
+  try {
+    const order = await orders().create({
+      accessToken: randomBytes(24).toString("base64url"),
+      status: "quote_requested",
+      customer: parsed.data.clientInfo,
+      items: lines,
+      taxLabel,
+      taxRatePercent,
+      subtotal: 0,
+      tax: 0,
+      total: 0,
+      paystackReference: null,
+      amountPaid: null,
+      paidAt: null,
+      paymentNote: null,
+      invoicedAt: null
     });
-    console.log("=========================================");
-
-    // Simulate saving to DB and sending confirmation email
-    // ... insert into database query ...
-    // ... transport.sendMail() ...
-
     return NextResponse.json(
-      { 
-        success: true, 
-        message: "Inquiry registered successfully.", 
-        quoteId 
-      },
+      { success: true, quoteId: order.number, url: orderUrl(order, "&new=1") },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error processing RFQ API request:", error);
-    return NextResponse.json(
-      { message: "Internal server error. Failed to process quote request." },
-      { status: 500 }
-    );
+    console.error("order create failed", error);
+    return NextResponse.json({ message: "We could not save your order right now. Please send it to us on WhatsApp." }, { status: 503 });
   }
 }

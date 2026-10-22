@@ -1,0 +1,134 @@
+.page { padding: 48px 0 80px; }
+.wrap { max-width: 920px; }
+.notice { background: rgba(var(--primary-rgb), 0.07); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px; color: var(--text-primary); }
+.noticeGood { background: rgba(0, 150, 57, 0.09); border-left-color: var(--secondary); }
+.noticeWarn { background: rgba(202, 138, 4, 0.12); border-left-color: var(--warning); }
+.payBox { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; background: rgba(0, 150, 57, 0.08); border: 1px solid rgba(0, 150, 57, 0.25); border-radius: var(--radius-md); padding: 18px 22px; margin-bottom: 20px; }
+.payBox strong { font-size: 1.3rem; color: var(--text-primary); }
+.payBtn { background: var(--secondary); color: #fff; border: 0; }
+.payBtn:hover { background: var(--secondary-hover); }
+.muted { color: var(--text-muted); font-size: 0.9rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.actionButtons { display: flex; gap: 10px; flex-wrap: wrap; }
+.status { display: inline-block; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.status_paid { background: rgba(0, 150, 57, 0.12); color: var(--secondary); }
+.status_awaiting_payment { background: rgba(202, 138, 4, 0.15); color: #8a5b00; }
+.status_quote_requested { background: rgba(var(--primary-rgb), 0.1); color: var(--primary-light); }
+.status_cancelled { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+
+/*
+ * Invoice document. Full brand colour by default; "Print ink-saving" switches the
+ * colour variables to black on white with no fills (html[data-print="ink"]).
+ */
+.invoice {
+  --navy: #0b3a8c;
+  --green: #2e9e3a;
+  --green-dark: #1f7a2b;
+  --tint: #eef3fb;
+  --tint-green: #e6f4e8;
+  --rule: #d5deeb;
+  --head-bg: #0b3a8c;
+  --head-fg: #ffffff;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  color: #1a2433;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 28px 32px 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.invoice h1, .invoice h2, .invoice dt { color: var(--navy); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+.logo { display: block; width: 190px; height: auto; }
+.issuer { font-style: normal; display: flex; flex-direction: column; text-align: right; font-size: 0.78rem; line-height: 1.35; color: #33415a; }
+.titleRow { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin: 12px 0; }
+.titleRow h1 { font-family: 'Outfit', sans-serif; font-size: 1.9rem; font-weight: 800; letter-spacing: 0.03em; line-height: 1; }
+.facts { display: grid; grid-template-columns: auto auto; gap: 0 12px; font-size: 0.82rem; background: var(--tint); border-radius: 6px; padding: 6px 12px; }
+.facts dt { font-weight: 700; text-align: right; }
+.facts dd { margin: 0; }
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.box { background: var(--tint); border: 1px solid var(--rule); border-radius: 6px; padding: 7px 12px; }
+.box h2 { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2px; }
+.box p { margin: 0; }
+.terms { margin-top: 4px !important; font-size: 0.8rem; }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table thead { display: table-header-group; }
+.table tr { break-inside: avoid; }
+.table th { text-align: left; padding: 6px 8px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--head-bg); color: var(--head-fg); border-top: 1px solid var(--navy); border-bottom: 1px solid var(--navy); }
+.table td { padding: 5px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.no { width: 36px; }
+.table .num { text-align: right; white-space: nowrap; }
+.lineNote { display: block; font-size: 0.75rem; color: #5a6679; }
+.totals { margin-left: auto; width: min(300px, 100%); margin-top: 8px; break-inside: avoid; }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 10px; }
+.total { font-weight: 800; font-size: 1rem; color: var(--green-dark); background: var(--tint-green); border-top: 2px solid var(--green); border-bottom: 2px solid var(--green); margin-top: 4px; }
+.words { margin-top: 10px; font-size: 0.84rem; background: var(--tint-green); border-left: 4px solid var(--green); padding: 6px 12px; border-radius: 4px; }
+.words strong { color: var(--green-dark); }
+.instructions { margin-top: 8px; font-size: 0.82rem; }
+.closing { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; align-items: end; break-inside: avoid; }
+.signature { position: relative; display: flex; flex-direction: column; font-size: 0.78rem; color: #33415a; }
+.sigLine { border-bottom: 1px solid var(--navy); height: 34px; margin-bottom: 4px; width: min(240px, 100%); }
+.stamp { position: absolute; top: -6px; left: 120px; border: 2px solid var(--green); color: var(--green); font-weight: 800; letter-spacing: 0.2em; padding: 2px 12px; transform: rotate(-8deg); }
+.notes { background: var(--tint); border-radius: 6px; padding: 7px 12px; }
+.notes h2 { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2px; }
+.notes ol { padding-left: 16px; font-size: 0.74rem; line-height: 1.35; color: #33415a; }
+.foot { margin-top: 12px; padding-top: 6px; border-top: 1px solid var(--rule); font-size: 0.72rem; color: #5a6679; }
+/* Slim thank-you band (replaces a heavy full-colour footer). */
+.band { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 12px -32px 0; padding: 7px 32px; background: var(--navy); color: #fff; font-size: 0.7rem; letter-spacing: 0.02em; }
+.band em { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: #d9f2dc; }
+
+@media (max-width: 640px) {
+  .invoice { padding: 18px 18px 0; }
+  .band { margin: 12px -18px 0; padding: 7px 18px; }
+  .meta, .closing { grid-template-columns: 1fr; }
+  .issuer { text-align: left; }
+}
+
+@media print {
+  .noPrint { display: none !important; }
+  .page { padding: 0; }
+  .invoice { border: 0; border-radius: 0; padding: 0; font-size: 0.8rem; }
+  .band { margin: 8px 0 0; padding: 5px 10px; border-radius: 4px; font-size: 0.62rem; flex-wrap: nowrap; }
+  .band em { font-size: 0.72rem; white-space: nowrap; }
+  .top { padding-bottom: 6px; }
+  .logo { width: 160px; }
+  .titleRow { margin: 8px 0; }
+  .titleRow h1 { font-size: 1.6rem; }
+  .meta { margin-bottom: 8px; }
+  .table th { padding: 4px 6px; }
+  .table td { padding: 3px 6px; }
+  .lineNote { display: inline; margin-left: 6px; }
+  .lineNote::before { content: "— "; }
+  .words { margin-top: 6px; padding: 4px 10px; }
+  .closing { margin-top: 6px; }
+  .sigLine { height: 22px; }
+  .notes { padding: 5px 10px; }
+  .notes ol { font-size: 0.68rem; line-height: 1.3; }
+  .foot { margin-top: 6px; padding-top: 4px; }
+  @page { size: A4; margin: 10mm; }
+
+  /* Ink-saving print: black text, thin rules, no fills or colour bars. */
+  :global(html[data-print="ink"]) .invoice {
+    --navy: #111;
+    --green: #111;
+    --green-dark: #111;
+    --tint: transparent;
+    --tint-green: transparent;
+    --rule: #cfcfcf;
+    --head-bg: transparent;
+    --head-fg: #111;
+    color: #111;
+  }
+  :global(html[data-print="ink"]) .logo { filter: grayscale(1) contrast(1.4); }
+  :global(html[data-print="ink"]) .band { background: transparent; color: #111; border-top: 1px solid #111; border-radius: 0; }
+  :global(html[data-print="ink"]) .band em { color: #111; }
+  :global(html[data-print="ink"]) .box { border-color: #cfcfcf; }
+  :global(html[data-print="ink"]) .facts,
+  :global(html[data-print="ink"]) .notes,
+  :global(html[data-print="ink"]) .words { padding-left: 0; padding-right: 0; border-left: 0; }
+}
