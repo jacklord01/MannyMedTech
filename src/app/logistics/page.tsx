@@ -37,7 +37,7 @@ export default function LogisticsPage() {
     {
       icon: <Map size={36} />,
       title: "All 16 Regions Covered",
-      desc: "Direct routes from our Accra hub to Kumasi, Takoradi, Tamale, and rural districts via validated transport box systems with backup power."
+      desc: "Direct routes from our Kumasi head office and Accra hub to Takoradi, Tamale, Cape Coast and rural districts via validated transport box systems with backup power."
     }
   ];
 
@@ -93,7 +93,7 @@ export default function LogisticsPage() {
                   <div className={styles.dotActive}></div>
                   <div>
                     <h5>Cold Chain Van Transport</h5>
-                    <span>Accra &rarr; Regional Capitals (IoT Monitored)</span>
+                    <span>Kumasi &amp; Accra &rarr; Regional Capitals (IoT Monitored)</span>
                   </div>
                 </div>
                 <div className={styles.timelineItem}>

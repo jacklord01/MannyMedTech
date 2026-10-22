@@ -32,8 +32,6 @@ export default async function OrderPage({
   const canPay = order.status === "awaiting_payment" && order.total > 0;
   const shareLink = `${site.url}/order/${order.id}?t=${order.accessToken}`;
   const { customer } = order;
-  const [brandFirst, ...brandWords] = site.legalName.split(" ");
-  const brandRest = brandWords.join(" ");
 
   return (
     <div className={styles.page}>
@@ -89,12 +87,8 @@ export default async function OrderPage({
 
         <article className={styles.invoice}>
           <div className={styles.top}>
-            <div>
-              <div className={styles.brand}>
-                {brandFirst} <span>{brandRest}</span>
-              </div>
-              <div className={styles.tagline}>Medical Equipment &amp; Accessories Supplier</div>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element -- small SVG letterhead that must print crisply */}
+            <img className={styles.logo} src="/brand/logo.svg" alt={site.legalName} width={190} height={55} />
             <address className={styles.issuer}>
               {issuer.issuerAddress.map((line) => <span key={line}>{line}</span>)}
               <span>{site.phoneDisplay}</span>
@@ -199,10 +193,14 @@ export default async function OrderPage({
                 {order.paystackReference ? ` · Ref ${order.paystackReference}` : ""}. Thank you for choosing {site.legalName}.
               </p>
             ) : isInvoice ? (
-              <p>Pay online by card, mobile money or bank via Paystack using the Pay now button on the online invoice, or contact us to pay by bank transfer or cash.</p>
+              <p>Pay online by card, mobile money or bank via Paystack using the Pay now button on your online invoice, or pay by bank transfer or cash.</p>
             ) : (
               <p>This is a request for quotation, not a demand for payment. Your invoice will be issued once prices and availability are confirmed.</p>
             )}
+          </div>
+          <div className={styles.band}>
+            <span>Surgical Supplies · Hospital Equipment · Consumables · Technical Support</span>
+            <em>Thank you for choosing {site.legalName}</em>
           </div>
         </article>
 

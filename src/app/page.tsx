@@ -188,8 +188,8 @@ export default function Home() {
             </div>
             <div className={styles.distList}>
               {[
+                { name: 'Kumasi Head Office (Ashanti)', dot: 'blue' },
                 { name: 'Greater Accra Regional Hub', dot: 'green' },
-                { name: 'Ashanti Regional Hub', dot: 'blue' },
                 { name: 'Northern Regional Hub', dot: 'green' },
                 { name: 'Western Regional Hub', dot: 'amber' },
                 { name: 'Central Regional Hub', dot: 'blue' },
@@ -218,7 +218,7 @@ export default function Home() {
           <div className={styles.statCard}>
             <h3>16</h3>
             <p>Regions Covered</p>
-            <span>Reliable transport networks from Accra to Tamale, Bolgatanga and beyond.</span>
+            <span>Reliable transport from our Kumasi head office and Accra hub to Tamale, Bolgatanga and beyond.</span>
           </div>
           <div className={styles.statCard}>
             <h3>&lt; 2 Hrs</h3>
@@ -336,7 +336,7 @@ export default function Home() {
               Medical logistics in West Africa requires strict adherence to temperature integrity and regulatory clearance. 
             </p>
             <p className={styles.promoText}>
-              At Manny MedTech & Logistics, we operate our own fleet of refrigerated transit vans and secure warehousing in Accra. We ensure that delicate diagnostics reagents, enzymes, and vaccines maintain their temperature guidelines (+2°C to +8°C) from the moment they land at Kotoka International Airport (KIA) until delivery.
+              Headquartered in Kumasi, Manny MedTech & Logistics operates its own fleet of refrigerated transit vans and secure warehousing at our Accra hub. We ensure that delicate diagnostics reagents, enzymes, and vaccines maintain their temperature guidelines (+2°C to +8°C) from the moment they land at Kotoka International Airport (KIA) until delivery.
             </p>
             <div className={styles.promoPoints}>
               <div className={styles.point}>
