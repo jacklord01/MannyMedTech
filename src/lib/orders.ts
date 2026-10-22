@@ -97,9 +97,8 @@ export function buildLines(items: OrderRequest["items"]): OrderLine[] {
   });
 }
 
-export function isFullyPriced(lines: OrderLine[]): boolean {
-  return lines.every((line) => line.unitPrice !== null);
-}
+/** Blank "add item" rows on the staff invoice form, for items agreed on the phone. */
+export const EXTRA_INVOICE_ROWS = 3;
 
 export function computeTotals(lines: OrderLine[], taxRatePercent: number) {
   const subtotal = lines.reduce((sum, line) => sum + (line.unitPrice ?? 0) * line.quantity, 0);

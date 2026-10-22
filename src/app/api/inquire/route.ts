@@ -2,12 +2,13 @@ import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { orderUrl } from "@/lib/access";
 import { invoiceSettings } from "@/lib/config";
-import { buildLines, computeTotals, isFullyPriced, orderRequestSchema } from "@/lib/orders";
+import { buildLines, orderRequestSchema } from "@/lib/orders";
 import { orders } from "@/lib/store";
 
 /**
- * Saves an order from the inquiry list. Fully priced orders are invoiced immediately
- * (with a Paystack Pay now button); anything else becomes a quotation for staff to price at /admin.
+ * Saves the customer's inquiry list as a quotation request (no prices are shown to the customer).
+ * Sales staff call the customer, then price it at /admin to issue an invoice with a Pay now button.
+ * Catalogue prices are kept on each line only to pre-fill the staff pricing form.
  */
 export async function POST(request: Request) {
   const json: unknown = await request.json().catch(() => null);
@@ -29,26 +30,26 @@ export async function POST(request: Request) {
   }
 
   const { taxLabel, taxRatePercent } = invoiceSettings();
-  const priced = isFullyPriced(lines);
-  const totals = priced ? computeTotals(lines, taxRatePercent) : { subtotal: 0, tax: 0, total: 0 };
 
   try {
     const order = await orders().create({
       accessToken: randomBytes(24).toString("base64url"),
-      status: priced ? "awaiting_payment" : "quote_requested",
+      status: "quote_requested",
       customer: parsed.data.clientInfo,
       items: lines,
       taxLabel,
       taxRatePercent,
-      ...totals,
+      subtotal: 0,
+      tax: 0,
+      total: 0,
       paystackReference: null,
       amountPaid: null,
       paidAt: null,
       paymentNote: null,
-      invoicedAt: priced ? new Date().toISOString() : null
+      invoicedAt: null
     });
     return NextResponse.json(
-      { success: true, quoteId: order.number, invoiced: priced, url: orderUrl(order, "&new=1") },
+      { success: true, quoteId: order.number, url: orderUrl(order, "&new=1") },
       { status: 201 }
     );
   } catch (error) {

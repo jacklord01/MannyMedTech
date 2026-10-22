@@ -32,6 +32,12 @@ export default async function OrderPage({
   const canPay = order.status === "awaiting_payment" && order.total > 0;
   const shareLink = `${site.url}/order/${order.id}?t=${order.accessToken}`;
   const { customer } = order;
+  const quoteMessage = [
+    `*QUOTE REQUEST ${order.number}* — ${customer.facilityName}`,
+    `Contact: ${customer.fullName}, ${customer.phone}`,
+    ...order.items.map((line, index) => `${index + 1}. ${line.name} — Qty ${line.quantity}${line.notes ? ` (${line.notes})` : ""}`),
+    `Link: ${shareLink}`
+  ].join("\n");
 
   return (
     <div className={styles.page}>
@@ -47,12 +53,15 @@ export default async function OrderPage({
         ) : null}
         {isNew && order.status === "quote_requested" ? (
           <div className={`${styles.notice} ${styles.noticeGood} ${styles.noPrint}`}>
-            Thank you — your request <strong>{order.number}</strong> has been received. Our sales desk will confirm prices and availability
-            and send your invoice to {customer.email}. Bookmark this page: it becomes your invoice once priced.
+            Thank you — your quote request <strong>{order.number}</strong> has been received. Our sales desk will call you on{" "}
+            <strong>{customer.phone}</strong> to confirm your selection and pricing, then send your invoice with a Pay now button.
+            Keep this page link: it becomes your invoice once confirmed.
+            <div style={{ marginTop: 12 }}>
+              <a className="btn btn-primary" href={whatsappLink(quoteMessage)} target="_blank" rel="noopener noreferrer">
+                Send my request to Manny MedTech on WhatsApp
+              </a>
+            </div>
           </div>
-        ) : null}
-        {isNew && order.status === "awaiting_payment" ? (
-          <div className={`${styles.notice} ${styles.noticeGood} ${styles.noPrint}`}>Thank you — order <strong>{order.number}</strong> has been placed. Your invoice is below.</div>
         ) : null}
 
         {canPay ? (
@@ -99,11 +108,11 @@ export default async function OrderPage({
           </div>
 
           <div className={styles.titleRow}>
-            <h1>{isInvoice ? "INVOICE" : "QUOTATION REQUEST"}</h1>
+            <h1>{isInvoice ? "INVOICE" : "QUOTE REQUEST"}</h1>
             <dl className={styles.facts}>
               <dt>{isInvoice ? "Invoice No:" : "Reference:"}</dt><dd>{order.number}</dd>
               <dt>Date:</dt><dd>{dateFormat.format(new Date(order.invoicedAt ?? order.createdAt))}</dd>
-              <dt>Currency:</dt><dd>Ghana Cedis (GHS)</dd>
+              {isInvoice ? <><dt>Currency:</dt><dd>Ghana Cedis (GHS)</dd></> : null}
             </dl>
           </div>
 
@@ -129,8 +138,12 @@ export default async function OrderPage({
                   <th className={styles.no}>No.</th>
                   <th>Description</th>
                   <th className={styles.num}>Qty</th>
-                  <th className={styles.num}>Unit Price (GHS)</th>
-                  <th className={styles.num}>Subtotal (GHS)</th>
+                  {isInvoice ? (
+                    <>
+                      <th className={styles.num}>Unit Price (GHS)</th>
+                      <th className={styles.num}>Subtotal (GHS)</th>
+                    </>
+                  ) : null}
                 </tr>
               </thead>
               <tbody>
@@ -142,8 +155,12 @@ export default async function OrderPage({
                       {line.notes ? <span className={styles.lineNote}>{line.notes}</span> : null}
                     </td>
                     <td className={styles.num}>{line.quantity}</td>
-                    <td className={styles.num}>{line.unitPrice === null ? "To be quoted" : plain(line.unitPrice)}</td>
-                    <td className={styles.num}>{line.unitPrice === null ? "—" : plain(line.unitPrice * line.quantity)}</td>
+                    {isInvoice ? (
+                      <>
+                        <td className={styles.num}>{plain(line.unitPrice ?? 0)}</td>
+                        <td className={styles.num}>{plain((line.unitPrice ?? 0) * line.quantity)}</td>
+                      </>
+                    ) : null}
                   </tr>
                 ))}
               </tbody>
@@ -195,7 +212,7 @@ export default async function OrderPage({
             ) : isInvoice ? (
               <p>Pay online by card, mobile money or bank via Paystack using the Pay now button on your online invoice, or pay by bank transfer or cash.</p>
             ) : (
-              <p>This is a request for quotation, not a demand for payment. Your invoice will be issued once prices and availability are confirmed.</p>
+              <p>This is a list of your selected items, not an invoice. Our sales desk will call you to confirm availability and pricing, then issue your invoice.</p>
             )}
           </div>
           <div className={styles.band}>

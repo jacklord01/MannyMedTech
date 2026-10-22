@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { requireAdmin } from "@/lib/admin-auth";
 import { site } from "@/lib/config";
 import { formatCedis } from "@/lib/money";
-import { statusLabels } from "@/lib/orders";
+import { PRODUCTS } from "@/data/products";
+import { EXTRA_INVOICE_ROWS, statusLabels } from "@/lib/orders";
 import { orders } from "@/lib/store";
 import { cancelOrder, issueInvoice, recordManualPayment } from "../../actions";
 import styles from "../../admin.module.css";
@@ -36,9 +37,12 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
 
         <div className={styles.grid}>
           <div className={styles.panel}>
-            <h2>Pricing</h2>
+            <h2>{order.status === "quote_requested" ? "Confirm & invoice" : "Invoice lines"}</h2>
             {editable ? (
-              <ActionForm action={issueInvoice.bind(null, order.id)} submitLabel={order.status === "quote_requested" ? "Issue invoice" : "Update invoice"}>
+              <ActionForm action={issueInvoice.bind(null, order.id)} submitLabel={order.status === "quote_requested" ? "Generate invoice" : "Update invoice"}>
+                <p className={styles.muted} style={{ marginBottom: 10 }}>
+                  After confirming with the customer, adjust quantities (0 removes a line), set prices and add any extra items.
+                </p>
                 <div className={styles.tableWrap}>
                   <table className={styles.table}>
                     <thead><tr><th>Item</th><th>Qty</th><th>Unit price (GH₵)</th></tr></thead>
@@ -46,11 +50,38 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
                       {order.items.map((line, index) => (
                         <tr key={line.productId}>
                           <td>{line.name}{line.notes ? <><br /><span className={styles.muted}>{line.notes}</span></> : null}</td>
-                          <td>{line.quantity}</td>
                           <td>
-                            <input className={styles.priceInput} name={`price-${index}`} inputMode="decimal" required
-                              defaultValue={line.unitPrice !== null ? (line.unitPrice / 100).toFixed(2) : ""} placeholder="0.00" />
+                            <input className={styles.qtyInput} name={`qty-${index}`} type="number" min={0} max={10000} defaultValue={line.quantity} aria-label={`Quantity for ${line.name}`} />
                           </td>
+                          <td>
+                            <input className={styles.priceInput} name={`price-${index}`} inputMode="decimal"
+                              defaultValue={line.unitPrice !== null ? (line.unitPrice / 100).toFixed(2) : ""} placeholder="0.00" aria-label={`Unit price for ${line.name}`} />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <h3 className={styles.subhead}>Add items (optional)</h3>
+                <div className={styles.tableWrap}>
+                  <table className={styles.table}>
+                    <thead><tr><th>Product</th><th>Qty</th><th>Unit price (GH₵)</th></tr></thead>
+                    <tbody>
+                      {Array.from({ length: EXTRA_INVOICE_ROWS }, (_, row) => (
+                        <tr key={row}>
+                          <td>
+                            <select className={styles.input} name={`new-product-${row}`} defaultValue="" aria-label={`Added item ${row + 1}`}>
+                              <option value="">—</option>
+                              {PRODUCTS.filter((product) => product.isAvailable).map((product) => (
+                                <option key={product.id} value={product.id}>{product.name}</option>
+                              ))}
+                              <option value="custom">Other (type description below)</option>
+                            </select>
+                            <input className={styles.input} style={{ marginTop: 6 }} name={`new-name-${row}`} placeholder="Description for “Other”" aria-label={`Description for added item ${row + 1}`} />
+                            <input className={styles.input} style={{ marginTop: 6 }} name={`new-notes-${row}`} placeholder="Size / specification (optional)" aria-label={`Notes for added item ${row + 1}`} />
+                          </td>
+                          <td><input className={styles.qtyInput} name={`new-qty-${row}`} type="number" min={1} max={10000} placeholder="1" aria-label={`Quantity for added item ${row + 1}`} /></td>
+                          <td><input className={styles.priceInput} name={`new-price-${row}`} inputMode="decimal" placeholder="0.00" aria-label={`Unit price for added item ${row + 1}`} /></td>
                         </tr>
                       ))}
                     </tbody>

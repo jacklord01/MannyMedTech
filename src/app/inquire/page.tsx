@@ -9,8 +9,6 @@ import {
   ArrowLeft, ClipboardList, Loader2, Send, MessageCircle
 } from 'lucide-react';
 import styles from './inquire.module.css';
-import { formatCedis } from '@/lib/money';
-import { unitPriceOf } from '@/lib/orders';
 
 const WHATSAPP_NUMBER = '233202776944';
 
@@ -79,8 +77,6 @@ export default function InquirePage() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const pricedSubtotal = items.reduce((sum, item) => sum + (unitPriceOf(item.product) ?? 0) * item.quantity, 0);
-  const allPriced = items.length > 0 && items.every((item) => unitPriceOf(item.product) !== null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -135,13 +131,13 @@ export default function InquirePage() {
       {/* Banner */}
       <div className={styles.banner}>
         <div className="container">
-          <h1>Order &amp; Request for Quote</h1>
-          <p>Priced items are invoiced instantly with a secure Pay now button. Equipment that needs a quotation is priced by our sales desk and invoiced to you, usually within one business day.</p>
+          <h1>Request for Quote (RFQ)</h1>
+          <p>Select the items you need and send your request. Our sales desk will call you to confirm details and pricing, then send your invoice with a secure Pay now button.</p>
 
           {/* Channel strip */}
           <div className={styles.channelStrip}>
             <span className={styles.channelPill}>
-              <FileText size={14} /> Instant invoice — pay by card, MoMo or bank
+              <FileText size={14} /> Invoice after confirmation — pay by card, MoMo or bank
             </span>
             <span className={styles.channelPill}>
               <Mail size={14} /> Email — PDF Quote Follow-up
@@ -173,7 +169,7 @@ export default function InquirePage() {
             <div className={styles.formContainer}>
               <h2 className={styles.formTitle}>Facility &amp; Contact Details</h2>
               <p className={styles.formSub}>
-                Your invoice (or quotation) and Paystack receipt will be sent to the email address you provide.
+                Please give a phone number we can call to confirm your request. Your invoice and Paystack receipt will be sent to your email.
               </p>
 
               {errorMsg && (
@@ -289,17 +285,13 @@ export default function InquirePage() {
                 >
                   {isSubmitting ? (
                     <><Loader2 className={styles.spinner} size={18} /> Saving your order...</>
-                  ) : allPriced ? (
-                    <><Send size={18} /> Place Order &amp; Get Invoice</>
                   ) : (
-                    <><Send size={18} /> Submit for Quotation</>
+                    <><Send size={18} /> Submit Quote Request</>
                   )}
                 </button>
 
                 <p className={styles.submitNote}>
-                  {allPriced
-                    ? 'You will be taken to your invoice, where you can pay securely with Paystack or message us on WhatsApp.'
-                    : 'You will get a reference and a private link to track your quotation. Once priced, the same link becomes your invoice with a Pay now button.'}
+                  Our sales desk will call you to confirm availability, pricing and delivery, then send your invoice with a secure Pay now button (card, mobile money or bank).
                 </p>
               </form>
             </div>
@@ -354,14 +346,9 @@ export default function InquirePage() {
               </div>
 
               <div className={styles.summaryTotalRow}>
-                <span>{allPriced ? 'Order Total:' : 'Priced Items:'}</span>
-                <strong>{formatCedis(pricedSubtotal)}</strong>
+                <span>Pricing:</span>
+                <strong>CONFIRMED BY PHONE</strong>
               </div>
-              {!allPriced && (
-                <p className={styles.summaryNotice}>
-                  * Items without a listed price will be quoted by our sales desk before you are invoiced.
-                </p>
-              )}
               <p className={styles.summaryNotice}>
                 * Pricing includes import clearance, delivery zones and order volume discounts. Verified against FDA Ghana databases.
               </p>

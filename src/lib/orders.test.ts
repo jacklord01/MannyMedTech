@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { PRODUCTS } from "@/data/products";
 import { amountInWords, cedisToPesewas, formatCedis, taxOn } from "./money";
-import { buildLines, computeTotals, isFullyPriced, orderNumber, orderRequestSchema, unitPriceOf } from "./orders";
+import { buildLines, computeTotals, orderNumber, orderRequestSchema, unitPriceOf } from "./orders";
 
 describe("order pricing", () => {
   it("reads catalogue prices like GH¢ 350", () => {
@@ -20,8 +20,8 @@ describe("order pricing", () => {
     expect(computeTotals(lines, 0)).toEqual({ subtotal: 145000, tax: 0, total: 145000 });
   });
 
-  it("marks quoted equipment as not yet priced", () => {
-    expect(isFullyPriced(buildLines([{ productId: "digital-xray-system", quantity: 1 }]))).toBe(false);
+  it("leaves equipment without a catalogue price for staff to price", () => {
+    expect(buildLines([{ productId: "digital-xray-system", quantity: 1 }])[0]?.unitPrice).toBeNull();
   });
 
   it("rejects unknown products", () => {

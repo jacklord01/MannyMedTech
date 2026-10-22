@@ -169,9 +169,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
           </div>
           
           <p className={styles.actionNotice}>
-            {product.price
-              ? "Order online and receive an invoice instantly, with a Pay now button for card, mobile money or bank payment."
-              : "As a wholesaler, Manny MedTech provides custom pricing based on shipping location (Ghana / West Africa / Diaspora) and volume. Add to RFQ below."}
+            As a wholesaler, Manny MedTech provides custom pricing based on shipping location (Ghana / West Africa / Diaspora) and volume. Add to RFQ below.
           </p>
 
           <div className={styles.controlsRow}>
@@ -195,7 +193,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
               className={`btn btn-primary ${styles.addToCartBtn}`} 
               onClick={handleAddToCart}
             >
-              <Plus size={18} /> {product.price ? "Add to Order" : "Add to Inquiry List"}
+              <Plus size={18} /> Add to Inquiry List
             </button>
 
             <a
